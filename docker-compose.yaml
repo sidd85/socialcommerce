@@ -7,6 +7,8 @@ services:
       MYSQL_ROOT_PASSWORD: R00tr00t
     volumes:
       - ./data/mysql:/var/lib/mysql
+    ports:
+      - "3307:3306"
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
