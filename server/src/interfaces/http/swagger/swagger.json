@@ -13,7 +13,7 @@
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
-  "host": "http://localhost:3000",
+  "host": "localhost:3000",
   "basePath": "/api",
   "consumes": [
     "application/json"
@@ -38,10 +38,6 @@
       "name": "shipping",
       "description": "Shipping information"
     }
-  ],
-  "schemes": [
-    "https",
-    "http"
   ],
   "paths": {
     "/product/": {

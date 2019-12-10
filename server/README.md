@@ -69,7 +69,7 @@ This platform have the basic web APIs for ecommerce app. The platform uses backe
 5. Run the database script located at  `src/infra/database scripts`. This shall create the sample data along with tables and store procedures.
 7. Run the application in development mode with `npm run dev`
 8. Access `http://localhost:3000/api/docs` and you can check the APIs documentation. You can test the APIs by change the baseURL. you're ready to go!
-
+9. Run the application in debug mode with `npm run debug` and then press F5 to start debugging.
 ## Scripts
 
 This boilerplate comes with a collection of npm scripts to make your life easier, you'll run them with `npm run <script name>` or `yarn run <script name>`:
