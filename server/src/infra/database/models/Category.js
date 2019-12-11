@@ -41,6 +41,23 @@ module.exports = function(sequelize, DataTypes) {
             }
           );
           return categories;
+        },
+        getAllCategories: function(
+          page,
+          limit,
+          offset
+        ) {
+          const categories = sequelize.query(
+            "SELECT category_id, name, description FROM category LIMIT :inOffset,:inLimit;;",
+            {
+              replacements: {
+                inOffset: offset,
+                inLimit: limit
+              },
+              type: sequelize.QueryTypes.SELECT
+            }
+          );
+          return categories;
         }
       },
       tableName: "category",

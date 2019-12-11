@@ -247,7 +247,44 @@
     "/category": {
       "get": {
         "tags": [
-          "product"
+          "category"
+        ],
+        "summary": "Finds all categories",
+        "description": "Find all category.",
+        "operationId": "findCategories",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "number of categories in the result. Default value is 10.",
+            "required": false,
+            "type": "number",
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Category"
+              }
+            }
+          },
+          "400": {
+            "description": "Categories not found"
+          }
+        }
+      }
+    },
+    "/category/findByDepartment": {
+      "get": {
+        "tags": [
+          "category"
         ],
         "summary": "Finds categories specific to department",
         "description": "Find Products by category.",

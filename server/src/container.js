@@ -17,7 +17,7 @@ const {
 
 const { GetAllDepartments } = require("./app/department");
 
-const { GetAllCategoriesByDepartment } = require("./app/category");
+const { GetAllCategories, GetAllCategoriesByDepartment } = require("./app/category");
 
 const {
   GetShippingRegions,
@@ -155,6 +155,7 @@ container.register({
   // Departments
   getAllDepartments: asClass(GetAllDepartments),
   // Categories
+  getAllCategories: asClass(GetAllCategories),
   getAllCategoriesByDepartment: asClass(GetAllCategoriesByDepartment),
   // Shipping
   getShippingRegions: asClass(GetShippingRegions),
