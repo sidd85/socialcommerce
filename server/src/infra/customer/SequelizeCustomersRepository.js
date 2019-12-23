@@ -26,7 +26,7 @@ class SequelizeCustomersRepository {
       error.details = errors;
       throw error;
     }
-    const newCustomerId = await this.CustomerModel.addCustomer(CustomerMapper.toDatabase(customer));
+    const newCustomerId = await this.CustomerModel.options.classMethods.addCustomer(CustomerMapper.toDatabase(customer));
     let customer_id = ((JSON.parse(JSON.stringify(newCustomerId))[0]['LAST_INSERT_ID()']));
     let name = customer.name;
     let email = customer.email;

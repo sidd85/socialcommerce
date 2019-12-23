@@ -5,7 +5,7 @@ module.exports = {
     try {
       await queryInterface.addColumn(
         'category',
-        'agent_id',
+        'community_id',
         {
           type: Sequelize.INTEGER(11),
           allowNull: true,
@@ -22,7 +22,7 @@ module.exports = {
   async down(queryInterface, Sequelize) {
     const transaction = await queryInterface.sequelize.transaction();
     try {
-      await queryInterface.removeColumn('category', 'agent_id', { transaction });
+      await queryInterface.removeColumn('category', 'community_id', { transaction });
       await transaction.commit();
     } catch (err) {
       await transaction.rollback();

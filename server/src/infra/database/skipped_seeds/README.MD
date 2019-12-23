@@ -1,0 +1,1 @@
+Mode these files to seeds folder and the run sequelize seed command

@@ -109,3 +109,9 @@ This boilerplate comes with a collection of npm scripts to make your life easier
 - Add Additional APIs to support Sociallogin.
 - Additional APIs for ecommerce (My Orders, Create Products etc)
 - Additional Test cases to complete more cases.
+
+
+##Sequelize
+- To generate seed file:  npm run sequelize -- seed:generate --name <file_name>
+- To undo seed: npm run sequelize db:seed:undo
+- To run seed: npm run sequelize db:seed:all
