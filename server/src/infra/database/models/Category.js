@@ -25,6 +25,23 @@ module.exports = function(sequelize, DataTypes) {
     },
     {
       classMethods: {
+        getAllCategories: function(
+          page,
+          limit,
+          offset
+        ) {
+          const categories = sequelize.query(
+            "SELECT category_id, name, description FROM category LIMIT :inOffset,:inLimit;;",
+            {
+              replacements: {
+                inOffset: offset,
+                inLimit: limit
+              },
+              type: sequelize.QueryTypes.SELECT
+            }
+          );
+          return categories;
+        },
         getAllCategoriesByDepartment: function(
           department,
           page,
@@ -42,17 +59,17 @@ module.exports = function(sequelize, DataTypes) {
           );
           return categories;
         },
-        getAllCategories: function(
+        getAllCategoriesByCommunity: function (
+          community,
           page,
           limit,
           offset
         ) {
           const categories = sequelize.query(
-            "SELECT category_id, name, description FROM category LIMIT :inOffset,:inLimit;;",
+            "SELECT * FROM `category` where community_id=:inCommunityId",
             {
               replacements: {
-                inOffset: offset,
-                inLimit: limit
+                inCommunityId: community
               },
               type: sequelize.QueryTypes.SELECT
             }
@@ -62,7 +79,7 @@ module.exports = function(sequelize, DataTypes) {
       },
       tableName: "category",
       timestamps: false
-    }
+    },
   );
 
   return Category;

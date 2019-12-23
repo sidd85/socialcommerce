@@ -326,6 +326,43 @@
         }
       }
     },
+    "/category/findByCommunity": {
+      "get": {
+        "tags": [
+          "category"
+        ],
+        "summary": "Finds categories specific to community",
+        "description": "Find categories by community id.",
+        "operationId": "findCategoriesByCommunity",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "community",
+            "in": "query",
+            "description": "community Id of the category",
+            "required": true,
+            "type": "string",
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Category"
+              }
+            }
+          },
+          "400": {
+            "description": "Community Id"
+          }
+        }
+      }
+    },
     "/department": {
       "get": {
         "tags": [

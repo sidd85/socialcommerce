@@ -16,6 +16,7 @@ const CategoriesController = {
 
     router.get("/", inject("getAllCategories"), this.index);
     router.get("/findByDepartment", inject("getAllCategoriesByDepartment"), this.getAllCategoriesByDepartment);
+    router.get("/findByCommunity", inject("getAllCategoriesByCommunity"), this.getAllCategoriesByCommunity);
     return router;
   },
 
@@ -67,6 +68,33 @@ const CategoriesController = {
 
     getAllCategoriesByDepartment.execute(
       parseInt(req.query.department) || 0,
+      req.query.page,
+      req.query.limit
+    );
+  },
+
+  getAllCategoriesByCommunity(req, res, next) {
+    const { getAllCategoriesByCommunity, categorySerializer } = req;
+    const { SUCCESS, ERROR } = getAllCategoriesByCommunity.outputs;
+    getAllCategoriesByCommunity
+      .on(SUCCESS, categories => {
+        const itemCount = categories.count;
+        const pageCount = Math.ceil(itemCount / req.query.limit);
+        const limit = req.query.limit;
+        const currentPage = req.query.page;
+        const results = {
+          categories: categories.rows.map(categorySerializer.serialize),
+          pageCount,
+          itemCount,
+          limit,
+          currentPage
+        };
+        res.status(Status.OK).json(results);
+      })
+      .on(ERROR, next);
+
+    getAllCategoriesByCommunity.execute(
+      parseInt(req.query.community) || 0,
       req.query.page,
       req.query.limit
     );

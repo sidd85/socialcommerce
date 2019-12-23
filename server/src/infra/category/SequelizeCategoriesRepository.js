@@ -29,6 +29,19 @@ class SequelizeCategoriesRepository {
     categories.count = rows.length;
     return categories;
   }
+
+  async getAllByCommunity(...args) {
+    const categories = await this.CategoryModel.options.classMethods.getAllCategoriesByCommunity(
+      args[0].community,
+      args[0].page,
+      args[0].limit,
+      args[0].offset
+    );
+    let rows = JSON.parse(JSON.stringify(categories));
+    categories.rows = rows;
+    categories.count = rows.length;
+    return categories;
+  }
 }
 
 module.exports = SequelizeCategoriesRepository;
