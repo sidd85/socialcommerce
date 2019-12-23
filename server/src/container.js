@@ -19,6 +19,8 @@ const { GetAllDepartments } = require("./app/department");
 
 const { GetAllCategories, GetAllCategoriesByDepartment } = require("./app/category");
 
+const { GetAllCommunities} = require("./app/community");
+
 const {
   GetShippingRegions,
   GetShippingRates,
@@ -44,6 +46,7 @@ const ShippingRateSerializer = require("./interfaces/http/shipping/ShippingRateS
 const ShippingRegionSerializer = require("./interfaces/http/shipping/ShippingRegionSerializer");
 const CartSerializer = require("./interfaces/http/store/CartSerializer");
 const OrderSerializer = require("./interfaces/http/store/OrderSerializer");
+const CommunitySerializer = require("./interfaces/http/community/CommunitySerializer");
 
 const Server = require("./interfaces/http/Server");
 const router = require("./interfaces/http/router");
@@ -64,6 +67,7 @@ const SequelizeShippingRatesRepository = require("./infra/shippingRate/Sequelize
 const SequelizeShippingsRepository = require("./infra/shipping/SequelizeShippingsRepository");
 const SequelizeCartsRepository = require("./infra/store/SequelizeCartsRepository");
 const SequelizeOrdersRepository = require("./infra/store/SequelizeOrdersRepository");
+const SequelizeCommunitiesRepository = require("./infra/community/SequelizeCommunitiesRepository");
 
 const {
   database,
@@ -78,6 +82,7 @@ const {
   Attribute: AttributeModel,
   AttributeValue: AttributeValueModel,
   ProductAttribute: ProductAttributeModel,
+  Community: CommunityModel
 } = require("./infra/database/models");
 
 const container = createContainer();
@@ -121,7 +126,8 @@ container.register({
   ).singleton(),
   shippingsRepository: asClass(SequelizeShippingsRepository).singleton(),
   cartsRepository: asClass(SequelizeCartsRepository).singleton(),
-  ordersRepository: asClass(SequelizeOrdersRepository).singleton()
+  ordersRepository: asClass(SequelizeOrdersRepository).singleton(),
+  communitiesRepository: asClass(SequelizeCommunitiesRepository).singleton(),
 });
 
 // Database
@@ -138,6 +144,7 @@ container.register({
   AttributeModel: asValue(AttributeModel),
   AttributeValueModel: asValue(AttributeValueModel),
   ProductAttributeModel: asValue(ProductAttributeModel),
+  CommunityModel: asValue(CommunityModel)
 });
 
 // Operations
@@ -167,7 +174,8 @@ container.register({
   getCart: asClass(GetCart),
   placeOrder: asClass(PlaceOrder),
   updateOrder: asClass(UpdateOrder),
-  updateCartItem: asClass(UpdateCartItem)
+  updateCartItem: asClass(UpdateCartItem),
+  getAllCommunities: asClass(GetAllCommunities)
 });
 
 // Serializers
@@ -181,7 +189,8 @@ container.register({
   shippingRateSerializer: asValue(ShippingRateSerializer),
   shippingRegionSerializer: asValue(ShippingRegionSerializer),
   cartSerializer: asValue(CartSerializer),
-  orderSerializer: asValue(OrderSerializer)
+  orderSerializer: asValue(OrderSerializer),
+  communitySerializer: asValue(CommunitySerializer)
 });
 
 container.register({

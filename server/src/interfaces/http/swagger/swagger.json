@@ -23,6 +23,14 @@
   ],
   "tags": [
     {
+      "name": "community",
+      "description": "Community information"
+    },
+    {
+      "name": "category",
+      "description": "Cateogry information"
+    },
+    {
       "name": "product",
       "description": "Everything about product in the store"
     },
@@ -822,6 +830,43 @@
           }
         }
       }
+    },
+    "/community": {
+      "get": {
+        "tags": [
+          "community"
+        ],
+        "summary": "Finds all communities",
+        "description": "Find all communities.",
+        "operationId": "findCommunitiesssss",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "number of communities in the result. Default value is 10.",
+            "required": false,
+            "type": "number",
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Community"
+              }
+            }
+          },
+          "400": {
+            "description": "Communities not found"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -1187,6 +1232,28 @@
           "type": "number"
         },
         "attributeValue": {
+          "type": "string"
+        }
+      }
+    },
+    "Community": {
+      "type": "object",
+      "properties": {
+        "agent_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "community_name": {
+          "type": "string"
+        },
+        "community_address": {
+          "type": "string"
+        },
+        "agent_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "agent_designation": {
           "type": "string"
         }
       }

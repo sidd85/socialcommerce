@@ -56,6 +56,8 @@ module.exports = ({
 
   apiRouter.use("/category", controller("category/CategoriesController"));
 
+  apiRouter.use("/community", controller("community/CommunityController"));
+
   apiRouter.use("/shipping", controller("shipping/ShippingsController"));
 
   apiRouter.use("/store", controller("store/StoresController"));
