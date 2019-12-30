@@ -13,7 +13,7 @@ class SequelizeProductsRepository {
 
   async getAllByText(...args) {
     let offset = (args[0].page - 1) * args[0].limit;
-    const products = await this.ProductModel.getAllProductsByText(
+    const products = await this.ProductModel.options.classMethods.getAllProductsByText(
       args[0].searchText,
       args[0].page,
       args[0].limit,
@@ -21,7 +21,7 @@ class SequelizeProductsRepository {
     );
     let rows = JSON.parse(JSON.stringify(products));
     products.rows = rows;
-    const productCount = await this.ProductModel.getAllProductsCountByText(
+    const productCount = await this.ProductModel.options.classMethods.getAllProductsCountByText(
       args[0].searchText
     );
     products.count = (JSON.parse(JSON.stringify(productCount))[0]['count(*)']);
@@ -30,7 +30,7 @@ class SequelizeProductsRepository {
 
   async getAllByCategy(...args) {
     let offset = (args[0].page - 1) * args[0].limit;
-    const products = await this.ProductModel.getAllProductsByCategory(
+    const products = await this.ProductModel.options.classMethods.getAllProductsByCategory(
       args[0].category,
       args[0].page,
       args[0].limit,
@@ -38,7 +38,7 @@ class SequelizeProductsRepository {
     );
     let rows = JSON.parse(JSON.stringify(products));
     products.rows = rows;
-    const productCount = await this.ProductModel.getAllProductsCountByCategory(
+    const productCount = await this.ProductModel.options.classMethods.getAllProductsCountByCategory(
       args[0].category
     );
     products.count = (JSON.parse(JSON.stringify(productCount))[0]['categories_count']);
@@ -46,7 +46,7 @@ class SequelizeProductsRepository {
   }
 
   async getAttributes(productId) {
-    const productAttributes = await this.ProductModel.getAttributes(productId);
+    const productAttributes = await this.ProductModel.options.classMethods.getAttributes(productId);
     if(productAttributes.length == 0){
       const notFoundError = new Error("NotFoundError");
       notFoundError.details = `ProductAttributes with id ${productId} can't be found.`;

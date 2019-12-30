@@ -30,12 +30,10 @@ module.exports = ({
 
   apiRouter
     .use(methodOverride("X-HTTP-Method-Override"))
-    .use(
-      cors({
-        origin: ["http://localhost:3000", "http://localhost", "https://react-ipragmatech-ecommerce.herokuapp.com"],
-        credentials: true
-      })
-    )
+    .use(cors({
+      origin: ["http://localhost:3000", "http://localhost", "https://react-ipragmatech-ecommerce.herokuapp.com", "http://localhost:19006"],
+      credentials: true
+    }))
     .use(bodyParser.json())
     .use(compression())
     .use(containerMiddleware)

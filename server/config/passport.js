@@ -25,7 +25,7 @@ passport.use(new LocalStrategy(
         });
       }
       // If there is a user with the given email, but the password the user gives us is incorrect
-      else if (!dbCustomer.validPassword(password)) {
+      else if (!dbCustomer._modelOptions.instanceMethods.validPassword.bind(dbCustomer)(password)) {
         return done(null, false, {
           message: "Incorrect password."
         });
