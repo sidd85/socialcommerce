@@ -19,7 +19,7 @@ const { GetAllDepartments } = require("./app/department");
 
 const { GetAllCategories, GetAllCategoriesByDepartment, GetAllCategoriesByCommunity } = require("./app/category");
 
-const { GetAllCommunities} = require("./app/community");
+const { GetAllCommunities, GetAllCommunitiesByText} = require("./app/community");
 
 const {
   GetShippingRegions,
@@ -176,7 +176,8 @@ container.register({
   placeOrder: asClass(PlaceOrder),
   updateOrder: asClass(UpdateOrder),
   updateCartItem: asClass(UpdateCartItem),
-  getAllCommunities: asClass(GetAllCommunities)
+  getAllCommunities: asClass(GetAllCommunities),
+  getAllCommunitiesByText: asClass(GetAllCommunitiesByText),
 });
 
 // Serializers

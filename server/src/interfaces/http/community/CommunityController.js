@@ -8,13 +8,14 @@ const CommunityController = {
     const router = Router();
 
     router.use(inject("communitySerializer"));
-    router.use(function(req, res, next) {
-      res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
-      res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-      next();
-    });
 
     router.get("/", inject("getAllCommunities"), this.index);
+    router.get(
+      "/findBySearchText",
+      inject("getAllCommunitiesByText"),
+      this.getAllCommunitiesByText
+    );
+
     return router;
   },
 
@@ -39,6 +40,32 @@ const CommunityController = {
       .on(ERROR, next);
 
     getAllCommunities.execute(
+      req.query.page,
+      req.query.limit
+    );
+  },
+
+  getAllCommunitiesByText(req, res, next) {
+    const { getAllCommunitiesByText, communitySerializer } = req;
+    const { SUCCESS, ERROR } = getAllCommunitiesByText.outputs;
+    getAllCommunitiesByText
+      .on(SUCCESS, communities => {
+        const itemCount = communities.count;
+        const pageCount = Math.ceil(itemCount / req.query.limit);
+        const limit = req.query.limit;
+        const currentPage = req.query.page;
+        const results = {
+          communities: communities.rows.map(communitySerializer.serialize),
+          pageCount,
+          itemCount,
+          limit,
+          currentPage
+        };
+        res.status(Status.OK).json(results);
+      })
+      .on(ERROR, next);
+    getAllCommunitiesByText.execute(
+      req.query.searchText,
       req.query.page,
       req.query.limit
     );

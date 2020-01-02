@@ -38,7 +38,33 @@ module.exports = function(sequelize, DataTypes) {
             "SELECT * FROM `community`", { type: sequelize.QueryTypes.SELECT}
           );
           return communities;
-        }
+        },
+        getAllCommunitiesByText: function(searchText, page, limit, offset) {
+          const communities = sequelize.query(
+            "SELECT * FROM `community` where LOWER(CONCAT(community_name, '', community_address)) LIKE :inSearchString LIMIT :inOffset,:inLimit;",
+            {
+              replacements: {
+                inSearchString: '%' + searchText + '%',
+                inLimit: limit,
+                inOffset: offset
+              },
+              type: sequelize.QueryTypes.SELECT
+            }
+          );
+          return communities;
+        },
+        getAllCommunitiesCountByText: function(searchText) {
+          const count = sequelize.query(
+            "SELECT count(*) FROM `community` where LOWER(CONCAT(community_name, '', community_address)) LIKE :inSearchString;",
+            {
+              replacements: {
+                inSearchString: '%' + searchText + '%'
+              },
+              type: sequelize.QueryTypes.RAW
+            }
+          );
+          return count;
+        },
       },
       tableName: "community",
       timestamps: false

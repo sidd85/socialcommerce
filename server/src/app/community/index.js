@@ -1,3 +1,4 @@
 module.exports = {
-  GetAllCommunities: require("./GetAllCommunities")
+  GetAllCommunities: require("./GetAllCommunities"),
+  GetAllCommunitiesByText: require("./GetAllCommunitiesByText")
 };
