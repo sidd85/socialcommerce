@@ -30,31 +30,26 @@ module.exports = function(sequelize, DataTypes) {
       added_on: {
         type: DataTypes.DATE,
         allowNull: false
+      },
+      customer_id: {
+        type: DataTypes.INTEGER(11),
+        allowNull: false
+      },
+      active: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
       }
     },
     {
       classMethods: {
         addToCart: function(dbUser, cartData) {
           const updated = sequelize.query(
-            "CALL shopping_cart_add_product (:inCartId, :inProductId, :inAttributes);",
+            "CALL shopping_cart_add_product_v2 (:inProductId, :inCustomerId);",
             {
               replacements: {
-                inCartId: cartData["cartId"],
                 inProductId: cartData["productId"],
-                inAttributes: cartData["attributes"]
-              },
-              type: sequelize.QueryTypes.RAW
-            }
-          );
-          return updated;
-        },
-        updateCartItem: function(dbUser, cartData) {
-          const updated = sequelize.query(
-            "CALL shopping_cart_update (:inItemId, :inQuantity);",
-            {
-              replacements: {
-                inItemId: cartData["itemId"],
-                inQuantity: cartData["quantity"]
+                inCustomerId: dbUser["customer_id"]
               },
               type: sequelize.QueryTypes.RAW
             }
@@ -63,10 +58,37 @@ module.exports = function(sequelize, DataTypes) {
         },
         getCartItems: function(dbUser, cartData) {
           const items = sequelize.query(
-            "CALL shopping_cart_get_products (:inCartId);",
+            "CALL shopping_cart_get_products_v2 (:inCustomerId);",
             {
               replacements: {
-                inCartId: cartData["cartId"],
+                inCustomerId: dbUser["customer_id"],
+              },
+              type: sequelize.QueryTypes.RAW
+            }
+          );
+          return items;
+        },
+        updateCartItem: function(dbUser, cartData) {
+          const updated = sequelize.query(
+            "CALL shopping_cart_update_product_quantity_v2 (:inProductId, :inQuantity, :inCustomerId);",
+            {
+              replacements: {
+                inProductId: cartData["productId"],
+                inQuantity: cartData["quantity"],
+                inCustomerId: dbUser["customer_id"]
+              },
+              type: sequelize.QueryTypes.RAW
+            }
+          );
+          return updated;
+        },
+        removeCartItems: function(dbUser, cartData) {
+          const items = sequelize.query(
+            "CALL shopping_cart_remove_product_v2 (:inProductId, :inCustomerId);",
+            {
+              replacements: {
+                inProductId: cartData["productId"],
+                inCustomerId: dbUser["customer_id"],
               },
               type: sequelize.QueryTypes.RAW
             }

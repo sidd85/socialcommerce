@@ -115,3 +115,5 @@ This boilerplate comes with a collection of npm scripts to make your life easier
 - To generate seed file:  npm run sequelize -- seed:generate --name <file_name>
 - To undo seed: npm run sequelize db:seed:undo
 - To run seed: npm run sequelize db:seed:all
+- To run migration: npm run sequelize db:migrate
+- To revert the last migration: npm run sequelize db:migrate:undo

@@ -6,8 +6,7 @@ class UpdateCartItem extends Operation {
     this.cartsRepository = cartsRepository;
   }
 
-  async execute(user, cartData, itemId) {
-    cartData.itemId = itemId;
+  async execute(user, cartData) {
     const { SUCCESS, ERROR, UNAUTHORIZED } = this.outputs;
     try {
       const cart = await this.cartsRepository.updateCartItem(user, cartData);

@@ -1,15 +1,15 @@
 const Operation = require('src/app/Operation');
 
-class GetCart extends Operation {
+class RemoveCartItem extends Operation {
   constructor({ cartsRepository }) {
     super();
     this.cartsRepository = cartsRepository;
   }
 
-  async execute(user) {
+  async execute(user, cartData) {
     const { SUCCESS, ERROR, UNAUTHORIZED } = this.outputs;
     try {
-      const cart = await this.cartsRepository.getCartItems(user);
+      const cart = await this.cartsRepository.removeCartItem(user, cartData);
       this.emit(SUCCESS, cart);
     } catch(error) {
       if(error.message === 'UnauthorizedError') {
@@ -20,6 +20,6 @@ class GetCart extends Operation {
   }
 }
 
-GetCart.setOutputs(['SUCCESS', 'ERROR', 'UNAUTHORIZED']);
+RemoveCartItem.setOutputs(['SUCCESS', 'ERROR', 'UNAUTHORIZED']);
 
-module.exports = GetCart;
+module.exports = RemoveCartItem;

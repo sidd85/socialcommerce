@@ -18,6 +18,12 @@ const ShoppingCart = attributes({
   },
   added_on: {
     type: String
+  },
+  customer_id: {
+    type: Number
+  },
+  active: {
+    type: Boolean
   }
 })(class ShoppingCart {
 });

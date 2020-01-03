@@ -31,9 +31,10 @@ const {
 const {
   AddToCart,
   GetCart,
+  UpdateCartItem,
+  RemoveCartItem,
   PlaceOrder,
   UpdateOrder,
-  UpdateCartItem
 } = require("./app/store");
 
 const AuthSerializer = require("./interfaces/http/auth/AuthSerializer");
@@ -173,9 +174,10 @@ container.register({
   //Store
   addToCart: asClass(AddToCart),
   getCart: asClass(GetCart),
+  updateCartItem: asClass(UpdateCartItem),
+  removeCartItem: asClass(RemoveCartItem),
   placeOrder: asClass(PlaceOrder),
   updateOrder: asClass(UpdateOrder),
-  updateCartItem: asClass(UpdateCartItem),
   getAllCommunities: asClass(GetAllCommunities),
   getAllCommunitiesByText: asClass(GetAllCommunitiesByText),
 });

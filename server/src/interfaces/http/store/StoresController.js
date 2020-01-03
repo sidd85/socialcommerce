@@ -9,9 +9,10 @@ const StoresController = {
     router.use(inject("orderSerializer"));
     router.post("/cart", inject("addToCart"), this.addToCart);
     router.get("/cart", inject("getCart"), this.getCart);
+    router.put("/cart/:productId", inject("updateCartItem"), this.updateCartItem);
+    router.delete("/cart/:productId", inject("removeCartItem"), this.removeCartItem);
     router.post("/order", inject("placeOrder"), this.placeOrder);
     router.put("/order/:orderId", inject("updateOrder"), this.updateOrder);
-    router.put("/cart/:itemId", inject("updateCartItem"), this.updateCartItem);
     return router;
   },
 
@@ -43,6 +44,34 @@ const StoresController = {
       .on(ERROR, next);
     getCart.execute(req.user);
   },
+  updateCartItem(req, res, next) {
+    const { updateCartItem, orderSerializer } = req;
+    const { SUCCESS, ERROR, NOT_FOUND, UNAUTHORIZED } = updateCartItem.outputs;
+    updateCartItem
+      .on(SUCCESS, cart => {
+        const results = cart;
+        res.status(Status.OK).json(results);
+      })
+      .on(UNAUTHORIZED, message => {
+        res.status(Status.UNAUTHORIZED).json({ message: message });
+      })
+      .on(ERROR, next);
+    updateCartItem.execute(req.user, req.body);
+  },
+  removeCartItem(req, res, next) {
+    const { removeCartItem, orderSerializer } = req;
+    const { SUCCESS, ERROR, NOT_FOUND, UNAUTHORIZED } = removeCartItem.outputs;
+    removeCartItem
+      .on(SUCCESS, cart => {
+        const results = cart;
+        res.status(Status.OK).json(results);
+      })
+      .on(UNAUTHORIZED, message => {
+        res.status(Status.UNAUTHORIZED).json({ message: message });
+      })
+      .on(ERROR, next);
+    removeCartItem.execute(req.user, req.body);
+  },
   placeOrder(req, res, next) {
     const { placeOrder, orderSerializer } = req;
     const { SUCCESS, ERROR, NOT_FOUND, UNAUTHORIZED } = placeOrder.outputs;
@@ -71,20 +100,6 @@ const StoresController = {
       .on(ERROR, next);
     updateOrder.execute(req.user, req.body, req.params.orderId);
   },
-  updateCartItem(req, res, next) {
-    const { updateCartItem, orderSerializer } = req;
-    const { SUCCESS, ERROR, NOT_FOUND, UNAUTHORIZED } = updateCartItem.outputs;
-    updateCartItem
-      .on(SUCCESS, cart => {
-        const results = cart;
-        res.status(Status.OK).json(results);
-      })
-      .on(UNAUTHORIZED, message => {
-        res.status(Status.UNAUTHORIZED).json({ message: message });
-      })
-      .on(ERROR, next);
-    updateCartItem.execute(req.user, req.body, req.params.itemId);
-  }
 };
 
 module.exports = StoresController;

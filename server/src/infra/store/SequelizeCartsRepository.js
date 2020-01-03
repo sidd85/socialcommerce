@@ -6,17 +6,22 @@ class SequelizeCartsRepository {
   }
 
   async addToCart(user, cartData) {
-    const cart = await this.ShoppingCartModel.addToCart(user, cartData);
+    const cart = await this.ShoppingCartModel.options.classMethods.addToCart(user, cartData);
     return cartData;
   }
 
   async getCartItems(user, cartData) {
-    const cart = await this.ShoppingCartModel.getCartItems(user, cartData);
+    const cart = await this.ShoppingCartModel.options.classMethods.getCartItems(user, cartData);
     return cart;
   }
 
   async updateCartItem(user, cartData) {
-    const cart = await this.ShoppingCartModel.updateCartItem(user, cartData);
+    const cart = await this.ShoppingCartModel.options.classMethods.updateCartItem(user, cartData);
+    return cartData;
+  }
+
+  async removeCartItem(user, cartData) {
+    const cart = await this.ShoppingCartModel.options.classMethods.removeCartItems(user, cartData);
     return cartData;
   }
 }
