@@ -79,8 +79,8 @@ const {
   ShippingRegion: ShippingRegionModel,
   ShippingRate: ShippingRateModel,
   ShoppingCart: ShoppingCartModel,
-  Orders: OrdersModel,
-  Attribute: AttributeModel,
+  orders,
+  attribute,
   AttributeValue: AttributeValueModel,
   ProductAttribute: ProductAttributeModel,
   Community: CommunityModel
@@ -141,8 +141,8 @@ container.register({
   ShippingRegionModel: asValue(ShippingRegionModel),
   ShippingRateModel: asValue(ShippingRateModel),
   ShoppingCartModel: asValue(ShoppingCartModel),
-  OrdersModel: asValue(OrdersModel),
-  AttributeModel: asValue(AttributeModel),
+  OrdersModel: asValue(orders),
+  AttributeModel: asValue(attribute),
   AttributeValueModel: asValue(AttributeValueModel),
   ProductAttributeModel: asValue(ProductAttributeModel),
   CommunityModel: asValue(CommunityModel)

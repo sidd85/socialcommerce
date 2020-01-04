@@ -2,12 +2,12 @@ DROP PROCEDURE IF EXISTS shopping_cart_add_product_v2;
 DROP PROCEDURE IF EXISTS shopping_cart_get_products_v2;
 DROP PROCEDURE IF EXISTS shopping_cart_update_product_quantity_v2;
 DROP PROCEDURE IF EXISTS shopping_cart_remove_product_v2;
-
+DROP PROCEDURE IF EXISTS shopping_cart_empty_v2;
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `shopping_cart_add_product_v2`(IN inProductId INT, IN inCustomerId INT)
 BEGIN
   DECLARE productQuantity INT;
-  DECLARE cartUID CHAR(36);
+  DECLARE cartUID TEXT;
   -- Obtain current shopping cart quantity for the product
   SELECT DISTINCT quantity
   FROM   shopping_cart
@@ -68,5 +68,12 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `shopping_cart_remove_product_v2`(IN inProductId INT, IN inCustomerId INT)
 BEGIN
   DELETE FROM shopping_cart WHERE product_id = inProductId AND active = true AND customer_id = inCustomerId;
+END ;;
+DELIMITER ;
+
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `shopping_cart_empty_v2`(IN inCartId TEXT)
+BEGIN
+  DELETE FROM shopping_cart WHERE cart_id = inCartId;
 END ;;
 DELIMITER ;

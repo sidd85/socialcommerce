@@ -57,13 +57,13 @@ module.exports = function(sequelize, DataTypes) {
       classMethods: {
         placeOrder: function(dbUser, orderData) {
           const updated = sequelize.query(
-            "CALL shopping_cart_create_order (:inCartId, :inCustomerId, :inShippingId, :inTaxId);",
+            "CALL shopping_cart_create_order_v2 (:inCartId, :inCustomerId, :inShippingId, :inTaxId);",
             {
               replacements: {
                 inCartId: orderData["cartId"],
                 inCustomerId: dbUser.customer_id,
-                inShippingId: orderData["shippingId"],
-                inTaxId: orderData["taxId"]
+                inShippingId: orderData["shippingId"] || null,
+                inTaxId: orderData["taxId"] || null
               },
               type: sequelize.QueryTypes.RAW
             }

@@ -7,7 +7,7 @@ class SequelizeOrdersRepository {
   }
 
   async placeOrder(user, orderData) {
-    const order = await this.OrdersModel.placeOrder(user, orderData);
+    const order = await this.OrdersModel.options.classMethods.placeOrder(user, orderData);
     orderData.customerId = user.customer_id
     orderData.orderId = order[0].orderId;
     this.EmailHandler.sendEmail(user, orderData.orderId);
@@ -15,7 +15,7 @@ class SequelizeOrdersRepository {
   }
 
   async updateOrder(user, orderData) {
-    const order = await this.OrdersModel.updateOrder(user, orderData);
+    const order = await this.OrdersModel.options.classMethods.updateOrder(user, orderData);
     orderData.customerId = user.customer_id
     return orderData;
   }
