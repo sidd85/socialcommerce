@@ -108,7 +108,7 @@ module.exports = function(sequelize, DataTypes) {
                 inAddress2: shippingData["address2"],
                 inCity: shippingData["city"],
                 inRegion: shippingData["region"],
-                inPostalCode: shippingData["postalCode"],
+                inPostalCode: shippingData["postCode"],
                 inCountry: shippingData["country"],
                 inShippingRegionId: shippingData["shippingRegionId"]
               },

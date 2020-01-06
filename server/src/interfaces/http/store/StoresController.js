@@ -13,6 +13,7 @@ const StoresController = {
     router.delete("/cart/:productId", inject("removeCartItem"), this.removeCartItem);
     router.post("/order", inject("placeOrder"), this.placeOrder);
     router.put("/order/:orderId", inject("updateOrder"), this.updateOrder);
+    router.get("/order/:orderId", inject("getOrder"), this.getOrder);
     return router;
   },
 
@@ -100,6 +101,20 @@ const StoresController = {
       .on(ERROR, next);
     updateOrder.execute(req.user, req.body, req.params.orderId);
   },
+  getOrder(req, res, next) {
+    const { getOrder, orderSerializer } = req;
+    const { SUCCESS, ERROR, NOT_FOUND, UNAUTHORIZED } = getOrder.outputs;
+    getOrder
+      .on(SUCCESS, cart => {
+        const results = cart;
+        res.status(Status.OK).json(results);
+      })
+      .on(UNAUTHORIZED, message => {
+        res.status(Status.UNAUTHORIZED).json({ message: message });
+      })
+      .on(ERROR, next);
+    getOrder.execute(req.user, req.params);
+  }
 };
 
 module.exports = StoresController;

@@ -33,7 +33,7 @@ class SequelizeProductsRepository {
     const products = await this.ProductModel.options.classMethods.getAllProductsByCategory(
       args[0].category,
       args[0].page,
-      args[0].limit,
+      1000,//args[0].limit,
       offset
     );
     let rows = JSON.parse(JSON.stringify(products));

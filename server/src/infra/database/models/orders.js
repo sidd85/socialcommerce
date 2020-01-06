@@ -55,6 +55,19 @@ module.exports = function(sequelize, DataTypes) {
     },
     {
       classMethods: {
+        getOrder: function(dbUser, orderData) {
+          const categories = sequelize.query(
+            "SELECT od.item_id, od.order_id, od.product_id, od.attributes, od.product_name, od.quantity, od.unit_cost, p.image, p.image_2, p.thumbnail, p.description FROM `order_detail` od INNER join product p on p.product_id = od.product_id LEFT JOIN `orders` o on o.order_id = od.order_id WHERE od.order_id = :inOrderId and o.customer_id = :inCustomerId",
+            {
+              replacements: {
+                inOrderId: orderData["orderId"],
+                inCustomerId: dbUser.customer_id,
+              },
+              type: sequelize.QueryTypes.SELECT
+            }
+          );
+          return categories;
+        },
         placeOrder: function(dbUser, orderData) {
           const updated = sequelize.query(
             "CALL shopping_cart_create_order_v2 (:inCartId, :inCustomerId, :inShippingId, :inTaxId);",

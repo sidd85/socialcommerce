@@ -35,6 +35,7 @@ const {
   RemoveCartItem,
   PlaceOrder,
   UpdateOrder,
+  GetOrder
 } = require("./app/store");
 
 const AuthSerializer = require("./interfaces/http/auth/AuthSerializer");
@@ -178,6 +179,7 @@ container.register({
   removeCartItem: asClass(RemoveCartItem),
   placeOrder: asClass(PlaceOrder),
   updateOrder: asClass(UpdateOrder),
+  getOrder: asClass(GetOrder),
   getAllCommunities: asClass(GetAllCommunities),
   getAllCommunitiesByText: asClass(GetAllCommunitiesByText),
 });

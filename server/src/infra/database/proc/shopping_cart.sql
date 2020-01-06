@@ -39,7 +39,7 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `shopping_cart_get_products_v2`(IN inCustomerId INT)
 BEGIN
-  SELECT     sc.item_id, p.name,p.product_id, sc.attributes, sc.cart_id,
+  SELECT     sc.item_id, p.name,p.product_id, p.thumbnail, sc.attributes, sc.cart_id,
              COALESCE(NULLIF(p.discounted_price, 0), p.price) AS price,
              sc.quantity,
              COALESCE(NULLIF(p.discounted_price, 0),

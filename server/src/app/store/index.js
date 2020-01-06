@@ -5,4 +5,5 @@ module.exports = {
   RemoveCartItem: require('./RemoveCartItem'),
   PlaceOrder: require('./PlaceOrder'),
   UpdateOrder: require('./UpdateOrder'),
+  GetOrder: require('./GetOrder')
 };
