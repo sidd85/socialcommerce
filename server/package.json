@@ -8,7 +8,7 @@
     "node": "11.12.0"
   },
   "scripts": {
-    "start": "node cluster.js",
+    "start": "PORT=3000 node cluster.js",
     "dev": "cross-env NODE_PATH=. NODE_ENV=development nodemon",
     "debug": "cross-env NODE_PATH=. NODE_ENV=development nodemon --inspect-brk=3300",
     "test": "npm run test:all",
