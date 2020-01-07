@@ -31,7 +31,7 @@ module.exports = ({
   apiRouter
     .use(methodOverride("X-HTTP-Method-Override"))
     .use(cors({
-      origin: ["http://localhost:3000", "http://localhost", "https://react-ipragmatech-ecommerce.herokuapp.com", "http://localhost:19006"],
+      origin: ["http://localhost:3000", "http://localhost", "https://react-ipragmatech-ecommerce.herokuapp.com", "http://localhost:19006", "http://ec2-13-126-64-89.ap-south-1.compute.amazonaws.com:34727"],
       credentials: true
     }))
     .use(bodyParser.json())

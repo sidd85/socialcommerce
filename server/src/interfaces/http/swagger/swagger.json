@@ -3,7 +3,7 @@
   "info": {
     "description": "This is a ecommerce project",
     "version": "1.0.0",
-    "title": "iPragmatech Ecommerce",
+    "title": "SOCCO Backend",
     "termsOfService": "",
     "contact": {
       "email": "kapil.jain@ipragmatech.com"
@@ -13,7 +13,7 @@
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
-  "host": "localhost:3000",
+  "host": "http://ec2-13-126-64-89.ap-south-1.compute.amazonaws.com:34727",
   "basePath": "/api",
   "consumes": [
     "application/json"
