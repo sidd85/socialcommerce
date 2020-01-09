@@ -9,8 +9,8 @@ const StoresController = {
     router.use(inject("orderSerializer"));
     router.post("/cart", inject("addToCart"), this.addToCart);
     router.get("/cart", inject("getCart"), this.getCart);
-    router.put("/cart/:productId", inject("updateCartItem"), this.updateCartItem);
-    router.delete("/cart/:productId", inject("removeCartItem"), this.removeCartItem);
+    router.put("/cart", inject("updateCartItem"), this.updateCartItem);
+    router.delete("/cart", inject("removeCartItem"), this.removeCartItem);
     router.post("/order", inject("placeOrder"), this.placeOrder);
     router.put("/order/:orderId", inject("updateOrder"), this.updateOrder);
     router.get("/order/:orderId", inject("getOrder"), this.getOrder);

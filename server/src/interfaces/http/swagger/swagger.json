@@ -613,9 +613,7 @@
             "description": "Invalid Cart"
           }
         }
-      }
-    },
-    "/store/cart/:productId": {
+      },
       "put": {
         "tags": [
           "cart"
