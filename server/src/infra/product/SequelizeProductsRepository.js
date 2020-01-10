@@ -120,7 +120,7 @@ class SequelizeProductsRepository {
 
   async _getById(id) {
     try {
-      return await this.ProductModel.findById(id, { rejectOnEmpty: true });
+      return await this.ProductModel.findByPk(id, { rejectOnEmpty: true });
     } catch (error) {
       if (error.name === "SequelizeEmptyResultError") {
         const notFoundError = new Error("NotFoundError");
