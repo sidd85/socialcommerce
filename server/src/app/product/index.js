@@ -3,5 +3,7 @@ module.exports = {
   GetProductAttributes: require("./GetProductAttributes"),
   GetAllProducts: require("./GetAllProducts"),
   GetAllProductsByText: require("./GetAllProductsByText"),
-  GetAllProductsByCategory: require("./GetAllProductsByCategory")
+  GetAllProductsByCategory: require("./GetAllProductsByCategory"),
+  GetAllProductsByCommunity: require("./GetAllProductsByCommunity"),
+  GetAllProductsByCategoryAndCommunity: require("./GetAllProductsByCategoryAndCommunity")
 };

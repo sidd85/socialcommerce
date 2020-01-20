@@ -39,17 +39,22 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false
+      },
+      community_id: {
+        type: DataTypes.INTEGER(11),
+        allowNull: true
       }
     },
     {
       classMethods: {
         addToCart: function(dbUser, cartData) {
           const updated = sequelize.query(
-            "CALL shopping_cart_add_product_v2 (:inProductId, :inCustomerId);",
+            "CALL shopping_cart_add_product_v2 (:inProductId, :inCustomerId, :inCommunityId);",
             {
               replacements: {
                 inProductId: cartData["productId"],
-                inCustomerId: dbUser["customer_id"]
+                inCustomerId: dbUser["customer_id"],
+                inCommunityId: cartData["communityId"],
               },
               type: sequelize.QueryTypes.RAW
             }

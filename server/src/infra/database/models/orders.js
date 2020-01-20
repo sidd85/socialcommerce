@@ -36,6 +36,10 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.INTEGER(11),
         allowNull: true
       },
+      community_id: {
+        type: DataTypes.INTEGER(11),
+        allowNull: true
+      },
       auth_code: {
         type: DataTypes.STRING(50),
         allowNull: true
@@ -57,7 +61,7 @@ module.exports = function(sequelize, DataTypes) {
       classMethods: {
         getOrder: function(dbUser, orderData) {
           const categories = sequelize.query(
-            "SELECT od.item_id, od.order_id, od.product_id, od.attributes, od.product_name, od.quantity, od.unit_cost, p.image, p.image_2, p.thumbnail, p.description FROM `order_detail` od INNER join product p on p.product_id = od.product_id LEFT JOIN `orders` o on o.order_id = od.order_id WHERE od.order_id = :inOrderId and o.customer_id = :inCustomerId",
+            "SELECT od.item_id, od.order_id, od.product_id, od.community_id, od.attributes, od.product_name, od.quantity, od.unit_cost, p.image, p.image_2, p.thumbnail, p.description FROM `order_detail` od INNER join product p on p.product_id = od.product_id LEFT JOIN `orders` o on o.order_id = od.order_id WHERE od.order_id = :inOrderId and o.customer_id = :inCustomerId",
             {
               replacements: {
                 inOrderId: orderData["orderId"],
@@ -76,7 +80,8 @@ module.exports = function(sequelize, DataTypes) {
                 inCartId: orderData["cartId"],
                 inCustomerId: dbUser.customer_id,
                 inShippingId: orderData["shippingId"] || null,
-                inTaxId: orderData["taxId"] || null
+                inTaxId: orderData["taxId"] || null,
+                inCommunityId: orderData["communityId"]
               },
               type: sequelize.QueryTypes.RAW
             }

@@ -66,7 +66,10 @@ module.exports = function(sequelize, DataTypes) {
           offset
         ) {
           const categories = sequelize.query(
-            "SELECT * FROM `category` where community_id=:inCommunityId",
+            `SELECT c.* FROM category c 
+          INNER JOIN product_category pcat on pcat.category_id = c.category_id
+          INNER JOIN product_community pcom on pcom.product_id = pcat.product_id
+          where pcom.community_id = :inCommunityId;`,
             {
               replacements: {
                 inCommunityId: community

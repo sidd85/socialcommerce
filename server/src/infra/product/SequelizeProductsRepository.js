@@ -45,6 +45,42 @@ class SequelizeProductsRepository {
     return products;
   }
 
+  async getAllByCommunity(...args) {
+    let offset = (args[0].page - 1) * args[0].limit;
+    const products = await this.ProductModel.options.classMethods.getAllProductsByCommunity(
+      args[0].community,
+      args[0].page,
+      1000,//args[0].limit,
+      offset
+    );
+    let rows = JSON.parse(JSON.stringify(products));
+    products.rows = rows;
+    const productCount = await this.ProductModel.options.classMethods.getAllProductsCountByCommunity(
+      args[0].community
+    );
+    products.count = (JSON.parse(JSON.stringify(productCount))[0]['communities_count']);
+    return products;
+  }
+
+  async getAllByCategoryAndCommunity(...args) {
+    let offset = (args[0].page - 1) * args[0].limit;
+    const products = await this.ProductModel.options.classMethods.getAllProductsByCategoryAndCommunity(
+      args[0].category,
+      args[0].community,
+      args[0].page,
+      1000,//args[0].limit,
+      offset
+    );
+    let rows = JSON.parse(JSON.stringify(products));
+    products.rows = rows;
+    const productCount = await this.ProductModel.options.classMethods.getAllProductsCountByCategoryAndCommunity(
+      args[0].category,
+      args[0].community
+    );
+    products.count = (JSON.parse(JSON.stringify(productCount))[0]['communities_count']);
+    return products;
+  }
+
   async getAttributes(productId) {
     const productAttributes = await this.ProductModel.options.classMethods.getAttributes(productId);
     if(productAttributes.length == 0){

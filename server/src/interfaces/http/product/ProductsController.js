@@ -28,6 +28,16 @@ const ProductsController = {
       this.getAllProductsByCategory
     );
     router.get(
+      "/findByCommunity",
+      inject("getAllProductsByCommunity"),
+      this.getAllProductsByCommunity
+    );
+    router.get(
+      "/findByCategoryAndCommunity",
+      inject("getAllProductsByCategoryAndCommunity"),
+      this.getAllProductsByCategoryAndCommunity
+    );
+    router.get(
       "/:productId",
       inject("getProductDetails"),
       this.getProductDetails
@@ -200,6 +210,60 @@ const ProductsController = {
     );
   },
 
+  getAllProductsByCommunity(req, res, next) {
+    const { getAllProductsByCommunity, productSerializer } = req;
+    const { SUCCESS, ERROR } = getAllProductsByCommunity.outputs;
+    getAllProductsByCommunity
+      .on(SUCCESS, products => {
+        const itemCount = products.count;
+        const pageCount = Math.ceil(itemCount / req.query.limit);
+        const limit = req.query.limit;
+        const currentPage = req.query.page;
+        const results = {
+          products: products.rows.map(productSerializer.serialize),
+          pageCount,
+          itemCount,
+          limit,
+          currentPage
+        };
+        res.status(Status.OK).json(results);
+      })
+      .on(ERROR, next);
+    console.log("Finding by Community:" + req.query.community);
+    getAllProductsByCommunity.execute(
+      req.query.community,
+      req.query.page,
+      req.query.limit
+    );
+  },
+
+  getAllProductsByCategoryAndCommunity(req, res, next) {
+    const { getAllProductsByCategoryAndCommunity, productSerializer } = req;
+    const { SUCCESS, ERROR } = getAllProductsByCategoryAndCommunity.outputs;
+    getAllProductsByCategoryAndCommunity
+      .on(SUCCESS, products => {
+        const itemCount = products.count;
+        const pageCount = Math.ceil(itemCount / req.query.limit);
+        const limit = req.query.limit;
+        const currentPage = req.query.page;
+        const results = {
+          products: products.rows.map(productSerializer.serialize),
+          pageCount,
+          itemCount,
+          limit,
+          currentPage
+        };
+        res.status(Status.OK).json(results);
+      })
+      .on(ERROR, next);
+    console.log("Finding by Category and Community:" + req.query.category + ", " + req.query.community);
+    getAllProductsByCategoryAndCommunity.execute(
+      req.query.category,
+      req.query.community,
+      req.query.page,
+      req.query.limit
+    );
+  },
   getProductDetails(req, res, next) {
     const { getProductDetails, productSerializer } = req;
 

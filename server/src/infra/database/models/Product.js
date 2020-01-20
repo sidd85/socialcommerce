@@ -103,6 +103,62 @@ module.exports = function(sequelize, DataTypes) {
           );
           return count;
         },
+        getAllProductsByCommunity: function(community, page, limit, offset) {
+          const products = sequelize.query(
+            "CALL catalog_get_products_in_community(:inCommunityId, :inShortProductDescriptionLength, :inProductsPerPage, :inStartItem);",
+            {
+              replacements: {
+                inCommunityId: community,
+                inShortProductDescriptionLength: 50,
+                inProductsPerPage: limit,
+                inStartItem: offset
+              },
+              type: sequelize.QueryTypes.RAW
+            }
+          );
+          return products;
+        },
+        getAllProductsCountByCommunity: function(community) {
+          const count = sequelize.query(
+            "CALL catalog_count_products_in_community(:inCommunityId);",
+            {
+              replacements: {
+                inCommunityId: community
+              },
+              type: sequelize.QueryTypes.RAW
+            }
+          );
+          return count;
+        },
+        getAllProductsByCategoryAndCommunity: function(category, community, page, limit, offset) {
+          const products = sequelize.query(
+            "CALL catalog_get_products_by_category_and_community(:inCategoryId, :inCommunityId, :inShortProductDescriptionLength, :inProductsPerPage, :inStartItem);",
+            {
+              replacements: {
+                inCategoryId: category,
+                inCommunityId: community,
+                inShortProductDescriptionLength: 50,
+                inProductsPerPage: limit,
+                inStartItem: offset
+              },
+              type: sequelize.QueryTypes.RAW
+            }
+          );
+          return products;
+        },
+        getAllProductsCountByCategoryAndCommunity: function(category, community) {
+          const count = sequelize.query(
+            "CALL catalog_count_products_by_category_and_community(:inCategoryId, :inCommunityId);",
+            {
+              replacements: {
+                inCategoryId: category,
+                inCommunityId: community
+              },
+              type: sequelize.QueryTypes.RAW
+            }
+          );
+          return count;
+        },
         getAttributes: function(productId) {
           const productAttributes = sequelize.query(
             "CALL catalog_get_product_attributes(:inProductId);",

@@ -13,9 +13,9 @@ BEGIN
 
   -- Insert order details in order_detail table
   INSERT INTO order_detail (order_id, product_id, attributes,
-                            product_name, quantity, unit_cost)
+                            product_name, quantity, unit_cost, community_id)
   SELECT      orderId, p.product_id, sc.attributes, p.name, sc.quantity,
-              COALESCE(NULLIF(p.discounted_price, 0), p.price) AS unit_cost
+              COALESCE(NULLIF(p.discounted_price, 0), p.price) AS unit_cost, sc.community_id
   FROM        shopping_cart sc
   INNER JOIN  product p
                 ON sc.product_id = p.product_id

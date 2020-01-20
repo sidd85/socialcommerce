@@ -4,7 +4,7 @@ DROP PROCEDURE IF EXISTS shopping_cart_update_product_quantity_v2;
 DROP PROCEDURE IF EXISTS shopping_cart_remove_product_v2;
 DROP PROCEDURE IF EXISTS shopping_cart_empty_v2;
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `shopping_cart_add_product_v2`(IN inProductId INT, IN inCustomerId INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `shopping_cart_add_product_v2`(IN inProductId INT, IN inCustomerId INT, IN inCommunityId INT)
 BEGIN
   DECLARE productQuantity INT;
   DECLARE cartUID TEXT;
@@ -23,8 +23,8 @@ BEGIN
   -- Create new shopping cart record, or increase quantity of existing record
   IF productQuantity IS NULL THEN
     INSERT INTO shopping_cart(cart_id, product_id,
-                              quantity, added_on, customer_id)
-           VALUES (COALESCE(cartUID, UUID()), inProductId, 1, NOW(), inCustomerId);
+                              quantity, added_on, customer_id, community_id)
+           VALUES (COALESCE(cartUID, UUID()), inProductId, 1, NOW(), inCustomerId, inCommunityId);
   ELSE
     UPDATE shopping_cart
     SET    quantity = productQuantity + 1
@@ -39,7 +39,7 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `shopping_cart_get_products_v2`(IN inCustomerId INT)
 BEGIN
-  SELECT     sc.item_id, p.name,p.product_id, p.thumbnail, sc.attributes, sc.cart_id,
+  SELECT     sc.item_id, p.name,p.product_id, p.thumbnail, sc.attributes, sc.cart_id, sc.community_id,
              COALESCE(NULLIF(p.discounted_price, 0), p.price) AS price,
              sc.quantity,
              COALESCE(NULLIF(p.discounted_price, 0),

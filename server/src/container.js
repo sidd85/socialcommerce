@@ -12,7 +12,9 @@ const {
   GetProductAttributes,
   GetAllProducts,
   GetAllProductsByText,
-  GetAllProductsByCategory
+  GetAllProductsByCategory,
+  GetAllProductsByCommunity,
+  GetAllProductsByCategoryAndCommunity,
 } = require("./app/product");
 
 const { GetAllDepartments } = require("./app/department");
@@ -161,6 +163,8 @@ container.register({
   getAllProducts: asClass(GetAllProducts),
   getAllProductsByText: asClass(GetAllProductsByText),
   getAllProductsByCategory: asClass(GetAllProductsByCategory),
+  getAllProductsByCommunity: asClass(GetAllProductsByCommunity),
+  getAllProductsByCategoryAndCommunity: asClass(GetAllProductsByCategoryAndCommunity),
   // Departments
   getAllDepartments: asClass(GetAllDepartments),
   // Categories
