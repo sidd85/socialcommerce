@@ -12,6 +12,7 @@ const StoresController = {
     router.put("/cart", inject("updateCartItem"), this.updateCartItem);
     router.delete("/cart", inject("removeCartItem"), this.removeCartItem);
     router.post("/order", inject("placeOrder"), this.placeOrder);
+    router.get("/order", inject("retrieveOrder"), this.retrieveOrder);
     router.put("/order/:orderId", inject("updateOrder"), this.updateOrder);
     router.get("/order/:orderId", inject("getOrder"), this.getOrder);
     return router;
@@ -86,6 +87,20 @@ const StoresController = {
       })
       .on(ERROR, next);
     placeOrder.execute(req.user, req.body);
+  },
+  retrieveOrder(req, res, next) {
+    const { retrieveOrder, orderSerializer } = req;
+    const { SUCCESS, ERROR, NOT_FOUND, UNAUTHORIZED } = retrieveOrder.outputs;
+    retrieveOrder
+      .on(SUCCESS, order => {
+        const results = order;
+        res.status(Status.OK).json(results);
+      })
+      .on(UNAUTHORIZED, message => {
+        res.status(Status.UNAUTHORIZED).json({ message: message });
+      })
+      .on(ERROR, next);
+    retrieveOrder.execute(req.user, req.body);
   },
   updateOrder(req, res, next) {
     const { updateOrder, orderSerializer } = req;

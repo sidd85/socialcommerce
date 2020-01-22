@@ -1,12 +1,12 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "This is a ecommerce project",
+    "description": "This is a socco project",
     "version": "1.0.0",
     "title": "SOCCO Backend",
     "termsOfService": "",
     "contact": {
-      "email": "kapil.jain@ipragmatech.com"
+      "email": ""
     },
     "license": {
       "name": "Apache 2.0",
@@ -406,43 +406,6 @@
         }
       }
     },
-    "/category/findByCommunity": {
-      "get": {
-        "tags": [
-          "category"
-        ],
-        "summary": "Finds categories specific to community",
-        "description": "Find categories by community id.",
-        "operationId": "findCategoriesByCommunity",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "community",
-            "in": "query",
-            "description": "community Id of the category",
-            "required": true,
-            "type": "string",
-            "collectionFormat": "multi"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Category"
-              }
-            }
-          },
-          "400": {
-            "description": "Community Id"
-          }
-        }
-      }
-    },
     "/department": {
       "get": {
         "tags": [
@@ -497,6 +460,31 @@
             "description": "successful operation",
             "schema": {
               "$ref": "#/definitions/Order"
+            }
+          },
+          "400": {
+            "description": "Invalid Order"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "store"
+        ],
+        "summary": "Get orders for customer",
+        "description": "",
+        "operationId": "retrieveOrder",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Orders"
+              }
             }
           },
           "400": {
@@ -1131,6 +1119,49 @@
         },
         "taxId": {
           "type": "integer"
+        }
+      }
+    },
+    "Orders": {
+      "type": "object",
+      "properties": {
+        "orderId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "productId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "productName": {
+          "type": "string"
+        },
+        "quantity": {
+          "type": "integer"
+        },
+        "thumbnail": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["ORDER_PLACED", "PROCESSING", "SHIPPED", "OUT_FOR_DELIVERY", "DELIVERED", "CANCELLED"]
+        },
+        "community_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "community_name": {
+          "type": "string"
+        },
+        "agent_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "agent_name": {
+          "type": "string"
+        },
+        "agent_phone": {
+          "type": "string"
         }
       }
     },

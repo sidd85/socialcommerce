@@ -36,6 +36,7 @@ const {
   UpdateCartItem,
   RemoveCartItem,
   PlaceOrder,
+  RetrieveOrder,
   UpdateOrder,
   GetOrder
 } = require("./app/store");
@@ -182,6 +183,7 @@ container.register({
   updateCartItem: asClass(UpdateCartItem),
   removeCartItem: asClass(RemoveCartItem),
   placeOrder: asClass(PlaceOrder),
+  retrieveOrder: asClass(RetrieveOrder),
   updateOrder: asClass(UpdateOrder),
   getOrder: asClass(GetOrder),
   getAllCommunities: asClass(GetAllCommunities),

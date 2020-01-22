@@ -88,6 +88,18 @@ module.exports = function(sequelize, DataTypes) {
           );
           return updated;
         },
+        retrieveOrder: function (dbUser, orderData) {
+          const orders = sequelize.query(
+            "SELECT od.*, o.created_on, p.thumbnail, co.community_name, c.customer_id as agent_id, c.name as agent_name, c.mob_phone as agent_phone FROM order_detail od INNER JOIN orders o ON o.order_id = od.order_id LEFT JOIN community co on co.community_id = od.community_id LEFT JOIN customer c on c.customer_id = co.agent_id LEFT JOIN product p on p.product_id = od.product_id where o.customer_id = :inCustomerId ORDER BY o.created_on desc;",
+            {
+              replacements: {
+                inCustomerId: dbUser.customer_id,
+              },
+              type: sequelize.QueryTypes.SELECT
+            }
+          );
+          return orders;
+        },
         updateOrder: function(dbUser, orderData) {
           const updated = sequelize.query(
             "CALL orders_update_order (:inOrderId, :inStatus, :inComments, :inAuthCode, :inReference);",

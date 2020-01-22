@@ -14,6 +14,11 @@ class SequelizeOrdersRepository {
     return orderData;
   }
 
+  async retrieveOrder(user, orderData) {
+    const orders = await this.OrdersModel.options.classMethods.retrieveOrder(user, orderData);
+    return orders;
+  }
+
   async updateOrder(user, orderData) {
     const order = await this.OrdersModel.options.classMethods.updateOrder(user, orderData);
     orderData.customerId = user.customer_id
