@@ -16,5 +16,13 @@ module.exports = {
     dialectModule: 'mysql2',
     logging: null
   },
-  production: process.env.DATABASE_URL
+  production: {
+    username: 'root',
+    password: 'R00tr00t',
+    database: 'ecommerce',
+    host: '127.0.0.1',
+    port: '3307',
+    dialect: 'mysql'
+  },
 };
+//production: process.env.DATABASE_URL
