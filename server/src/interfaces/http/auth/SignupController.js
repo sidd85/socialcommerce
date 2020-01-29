@@ -27,7 +27,23 @@ const SignupController = {
           details: error.details
         });
       })
-      .on(ERROR, next);
+      .on(ERROR, (error)=>{
+        if(error.name === 'SequelizeUniqueConstraintError') {
+          if(error.fields.idx_customer_email) {
+            res.status(Status.CONFLICT).json({
+              type: 'ValidationError',
+              details: 'Email already registered.'
+            });
+          } else {
+            res.status(Status.CONFLICT).json({
+              type: 'ValidationError',
+              details: 'Phone already registered.'
+            });
+          }
+        } else {
+          next(arguments);
+        }
+      });
 
     signup.execute(req.body);
   },

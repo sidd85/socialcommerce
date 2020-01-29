@@ -794,7 +794,7 @@
           {
             "in": "body",
             "name": "body",
-            "description": "User object with email and password",
+            "description": "User object with email/phone and password",
             "required": true,
             "schema": {
               "$ref": "#/definitions/User"
@@ -1337,6 +1337,9 @@
           "type": "string"
         },
         "email": {
+          "type": "string"
+        },
+        "mob_phone": {
           "type": "string"
         },
         "password": {

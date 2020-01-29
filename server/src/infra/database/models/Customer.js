@@ -70,7 +70,8 @@ module.exports = function(sequelize, DataTypes) {
       },
       mob_phone: {
         type: DataTypes.STRING(100),
-        allowNull: true
+        allowNull: false,
+        unique: true
       }
     },
     {
@@ -82,11 +83,12 @@ module.exports = function(sequelize, DataTypes) {
       classMethods: {
         addCustomer: function(dbUser) {
           const newUserId = sequelize.query(
-            "CALL customer_add (:inName, :inEmail, :inPassword);",
+            "CALL customer_add_v2 (:inName, :inEmail, :inPhone, :inPassword);",
             {
               replacements: {
                 inName: dbUser.name,
                 inEmail: dbUser.email,
+                inPhone: dbUser.mob_phone,
                 inPassword: bcrypt.hashSync(
                   dbUser.password,
                   bcrypt.genSaltSync(10),
