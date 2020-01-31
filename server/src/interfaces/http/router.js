@@ -60,6 +60,8 @@ module.exports = ({
 
   apiRouter.use("/store", controller("store/StoresController"));
 
+  apiRouter.use("/preferences", controller("preferences/PreferencesController"));
+
   apiRouter.use(
     "/login",
     passport.authenticate("local"),

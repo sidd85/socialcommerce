@@ -41,6 +41,8 @@ const {
   GetOrder
 } = require("./app/store");
 
+const {GetPreferences, UpdatePreferences} = require("./app/preferences");
+
 const AuthSerializer = require("./interfaces/http/auth/AuthSerializer");
 const ProductSerializer = require("./interfaces/http/product/ProductSerializer");
 const ProductAttributeSerializer = require("./interfaces/http/product/ProductAttributeSerializer");
@@ -52,6 +54,7 @@ const ShippingRegionSerializer = require("./interfaces/http/shipping/ShippingReg
 const CartSerializer = require("./interfaces/http/store/CartSerializer");
 const OrderSerializer = require("./interfaces/http/store/OrderSerializer");
 const CommunitySerializer = require("./interfaces/http/community/CommunitySerializer");
+const PreferencesSerializer = require("./interfaces/http/preferences/PreferencesSerializer");
 
 const Server = require("./interfaces/http/Server");
 const router = require("./interfaces/http/router");
@@ -73,6 +76,7 @@ const SequelizeShippingsRepository = require("./infra/shipping/SequelizeShipping
 const SequelizeCartsRepository = require("./infra/store/SequelizeCartsRepository");
 const SequelizeOrdersRepository = require("./infra/store/SequelizeOrdersRepository");
 const SequelizeCommunitiesRepository = require("./infra/community/SequelizeCommunitiesRepository");
+const SequelizePreferencesRepository = require("./infra/preferences/SequelizePreferencesRepository");
 
 const {
   database,
@@ -87,7 +91,8 @@ const {
   attribute,
   AttributeValue: AttributeValueModel,
   ProductAttribute: ProductAttributeModel,
-  Community: CommunityModel
+  Community: CommunityModel,
+  Preferences: PreferencesModel
 } = require("./infra/database/models");
 
 const container = createContainer();
@@ -133,6 +138,7 @@ container.register({
   cartsRepository: asClass(SequelizeCartsRepository).singleton(),
   ordersRepository: asClass(SequelizeOrdersRepository).singleton(),
   communitiesRepository: asClass(SequelizeCommunitiesRepository).singleton(),
+  preferencesRepository: asClass(SequelizePreferencesRepository).singleton()
 });
 
 // Database
@@ -149,7 +155,8 @@ container.register({
   AttributeModel: asValue(attribute),
   AttributeValueModel: asValue(AttributeValueModel),
   ProductAttributeModel: asValue(ProductAttributeModel),
-  CommunityModel: asValue(CommunityModel)
+  CommunityModel: asValue(CommunityModel),
+  PreferencesModel: asValue(PreferencesModel)
 });
 
 // Operations
@@ -188,6 +195,8 @@ container.register({
   getOrder: asClass(GetOrder),
   getAllCommunities: asClass(GetAllCommunities),
   getAllCommunitiesByText: asClass(GetAllCommunitiesByText),
+  getPreferences: asClass(GetPreferences),
+  updatePreferences: asClass(UpdatePreferences)
 });
 
 // Serializers
@@ -202,7 +211,8 @@ container.register({
   shippingRegionSerializer: asValue(ShippingRegionSerializer),
   cartSerializer: asValue(CartSerializer),
   orderSerializer: asValue(OrderSerializer),
-  communitySerializer: asValue(CommunitySerializer)
+  communitySerializer: asValue(CommunitySerializer),
+  preferencesSerializer: asValue(PreferencesSerializer)
 });
 
 container.register({
