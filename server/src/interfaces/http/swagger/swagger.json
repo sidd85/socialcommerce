@@ -728,7 +728,7 @@
           {
             "in": "body",
             "name": "body",
-            "description": "Update product in the cart",
+            "description": "Delete product in the cart",
             "required": true,
             "schema": {
               "$ref": "#/definitions/RemoveCartItem"
