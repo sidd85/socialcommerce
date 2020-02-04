@@ -21,7 +21,9 @@ const { GetAllDepartments } = require("./app/department");
 
 const { GetAllCategories, GetAllCategoriesByDepartment, GetAllCategoriesByCommunity } = require("./app/category");
 
-const { GetAllCommunities, GetAllCommunitiesByText} = require("./app/community");
+const { GetAllCommunities, GetAllCommunitiesByText,GetAllAgentName} = require("./app/community");
+
+const { GetAllBanners,PostBanner } = require("./app/banner");
 
 const {
   GetShippingRegions,
@@ -41,7 +43,8 @@ const {
   GetOrder
 } = require("./app/store");
 
-const {GetPreferences, UpdatePreferences} = require("./app/preferences");
+const { Banner } = require("./app/banner");//Banner
+
 
 const AuthSerializer = require("./interfaces/http/auth/AuthSerializer");
 const ProductSerializer = require("./interfaces/http/product/ProductSerializer");
@@ -54,7 +57,8 @@ const ShippingRegionSerializer = require("./interfaces/http/shipping/ShippingReg
 const CartSerializer = require("./interfaces/http/store/CartSerializer");
 const OrderSerializer = require("./interfaces/http/store/OrderSerializer");
 const CommunitySerializer = require("./interfaces/http/community/CommunitySerializer");
-const PreferencesSerializer = require("./interfaces/http/preferences/PreferencesSerializer");
+
+const BannerSerializer = require("./interfaces/http/banner/BannerSerializer");//Banner
 
 const Server = require("./interfaces/http/Server");
 const router = require("./interfaces/http/router");
@@ -76,7 +80,8 @@ const SequelizeShippingsRepository = require("./infra/shipping/SequelizeShipping
 const SequelizeCartsRepository = require("./infra/store/SequelizeCartsRepository");
 const SequelizeOrdersRepository = require("./infra/store/SequelizeOrdersRepository");
 const SequelizeCommunitiesRepository = require("./infra/community/SequelizeCommunitiesRepository");
-const SequelizePreferencesRepository = require("./infra/preferences/SequelizePreferencesRepository");
+
+const SequelizeBannerRepository = require("./infra/banner/SequelizeBannerRepository");//Banner
 
 const {
   database,
@@ -92,7 +97,7 @@ const {
   AttributeValue: AttributeValueModel,
   ProductAttribute: ProductAttributeModel,
   Community: CommunityModel,
-  Preferences: PreferencesModel
+  Banner:BannerModel //Banner
 } = require("./infra/database/models");
 
 const container = createContainer();
@@ -128,18 +133,15 @@ container.register({
   productsRepository: asClass(SequelizeProductsRepository).singleton(),
   departmentsRepository: asClass(SequelizeDepartmentsRepository).singleton(),
   categoriesRepository: asClass(SequelizeCategoriesRepository).singleton(),
-  shippingRegionsRepository: asClass(
-    SequelizeShippingRegionsRepository
-  ).singleton(),
-  shippingRatesRepository: asClass(
-    SequelizeShippingRatesRepository
-  ).singleton(),
+  shippingRegionsRepository: asClass(SequelizeShippingRegionsRepository).singleton(),
+  shippingRatesRepository: asClass(SequelizeShippingRatesRepository).singleton(),
   shippingsRepository: asClass(SequelizeShippingsRepository).singleton(),
   cartsRepository: asClass(SequelizeCartsRepository).singleton(),
   ordersRepository: asClass(SequelizeOrdersRepository).singleton(),
   communitiesRepository: asClass(SequelizeCommunitiesRepository).singleton(),
-  preferencesRepository: asClass(SequelizePreferencesRepository).singleton()
+  bannerRepository: asClass(SequelizeBannerRepository).singleton()//Banner
 });
+
 
 // Database
 container.register({
@@ -156,7 +158,7 @@ container.register({
   AttributeValueModel: asValue(AttributeValueModel),
   ProductAttributeModel: asValue(ProductAttributeModel),
   CommunityModel: asValue(CommunityModel),
-  PreferencesModel: asValue(PreferencesModel)
+  BannerModel: asValue(BannerModel) //Banner
 });
 
 // Operations
@@ -195,8 +197,9 @@ container.register({
   getOrder: asClass(GetOrder),
   getAllCommunities: asClass(GetAllCommunities),
   getAllCommunitiesByText: asClass(GetAllCommunitiesByText),
-  getPreferences: asClass(GetPreferences),
-  updatePreferences: asClass(UpdatePreferences)
+  getAllAgentName: asClass(GetAllAgentName),
+  getAllBanners:asClass(GetAllBanners),
+  postBanner:asClass(PostBanner)
 });
 
 // Serializers
@@ -212,7 +215,7 @@ container.register({
   cartSerializer: asValue(CartSerializer),
   orderSerializer: asValue(OrderSerializer),
   communitySerializer: asValue(CommunitySerializer),
-  preferencesSerializer: asValue(PreferencesSerializer)
+  bannerSerializer: asValue(BannerSerializer)//Banner
 });
 
 container.register({

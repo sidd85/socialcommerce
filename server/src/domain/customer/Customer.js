@@ -11,10 +11,6 @@ const Customer = attributes({
     type: String,
     required: true
   },
-  mob_phone: {
-    type: String,
-    required: true
-  },
   password: {
     type: String,
     required: true

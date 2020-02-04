@@ -60,8 +60,6 @@ module.exports = ({
 
   apiRouter.use("/store", controller("store/StoresController"));
 
-  apiRouter.use("/preferences", controller("preferences/PreferencesController"));
-
   apiRouter.use(
     "/login",
     passport.authenticate("local"),
@@ -71,6 +69,8 @@ module.exports = ({
   apiRouter.use("/signout", controller("auth/SignoutController"));
   apiRouter.use("/signup", controller("auth/SignupController"));
   apiRouter.use("/getUserInfo", controller("auth/UserInfoController"));
+
+  apiRouter.use("/banner", controller("banner/BannerController")); 
 
   router.use("/api", apiRouter);
 

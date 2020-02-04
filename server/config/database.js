@@ -1,16 +1,16 @@
 module.exports = {
   development: {
     username: 'root',
-    password: 'R00tr00t',
+    password: 'Root@123#',
     database: 'ecommerce',
     host: '127.0.0.1',
-    port: '3307',
+    port: '3306',
     dialect: 'mysql'
   },
   test: {
     username: 'root',
-    password: 'R00tr00t',
-    database: 'boilerplate_test',
+    password: 'Root@123#',
+    database: 'ecommerce',
     host: '127.0.0.1',
     dialect: 'mysql',
     dialectModule: 'mysql2',
@@ -18,10 +18,10 @@ module.exports = {
   },
   production: {
     username: 'root',
-    password: 'R00tr00t',
+    password: 'Root@123#',
     database: 'ecommerce',
     host: '127.0.0.1',
-    port: '3307',
+    port: '3306',
     dialect: 'mysql'
   },
 };

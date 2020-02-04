@@ -15,7 +15,7 @@ const CommunityController = {
       inject("getAllCommunitiesByText"),
       this.getAllCommunitiesByText
     );
-
+    router.get("/agentName", inject("getAllAgentName"), this.getAllAgentName);
     return router;
   },
 
@@ -66,6 +66,31 @@ const CommunityController = {
       .on(ERROR, next);
     getAllCommunitiesByText.execute(
       req.query.searchText,
+      req.query.page,
+      req.query.limit
+    );
+  },
+  getAllAgentName(req, res, next) {
+    const { getAllAgentName, communitySerializer } = req;
+    const { SUCCESS, ERROR } = getAllAgentName.outputs;
+    getAllAgentName
+      .on(SUCCESS, communities => {
+        const itemCount = communities.count;
+        const pageCount = Math.ceil(itemCount / req.query.limit);
+        const limit = req.query.limit;
+        const currentPage = req.query.page;
+        const results = {
+          communities: communities.rows.map(communitySerializer.serialize),
+          pageCount,
+          itemCount,
+          limit,
+          currentPage
+        };
+        res.status(Status.OK).json(results);
+      })
+      .on(ERROR, next);
+
+      getAllAgentName.execute(
       req.query.page,
       req.query.limit
     );

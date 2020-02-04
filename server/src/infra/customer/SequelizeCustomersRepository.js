@@ -31,8 +31,7 @@ class SequelizeCustomersRepository {
     let name = customer.name;
     let email = customer.email;
     let password = customer.password;
-    let mob_phone = customer.mob_phone;
-    return CustomerMapper.toEntity({'dataValues':{ customer_id, name, email, password, mob_phone }});
+    return CustomerMapper.toEntity({'dataValues':{ customer_id, name, email, password }});
   }
 
   serializeCustomer(customer) {

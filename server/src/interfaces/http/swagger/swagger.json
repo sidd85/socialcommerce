@@ -48,10 +48,6 @@
     {
       "name": "shipping",
       "description": "Shipping information"
-    },
-    {
-      "name": "preferences",
-      "description": "Consumer preferences"
     }
   ],
   "paths": {
@@ -728,7 +724,7 @@
           {
             "in": "body",
             "name": "body",
-            "description": "Delete product in the cart",
+            "description": "Update product in the cart",
             "required": true,
             "schema": {
               "$ref": "#/definitions/RemoveCartItem"
@@ -798,10 +794,10 @@
           {
             "in": "body",
             "name": "body",
-            "description": "User object with email/phone and password",
+            "description": "User object with email and password",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/LoginUser"
+              "$ref": "#/definitions/User"
             }
           }
         ],
@@ -974,7 +970,7 @@
         "tags": [
           "community"
         ],
-        "summary": "Find all communities",
+        "summary": "Finds all communities",
         "description": "Find all communities.",
         "operationId": "findCommunities",
         "produces": [
@@ -1052,67 +1048,6 @@
           },
           "400": {
             "description": "Invalid status value"
-          }
-        }
-      }
-    },
-    "/preferences": {
-      "get": {
-        "tags": [
-          "preferences"
-        ],
-        "summary": "Get customer preferences",
-        "description": "Get customer preferences by id",
-        "operationId": "getPreferences",
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/Preferences"
-            }
-          },
-          "400": {
-            "description": "Invalid data supplied"
-          },
-          "404": {
-            "description": "Consumer id not found"
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "preferences"
-        ],
-        "summary": "Update customer preferences",
-        "description": "Update customer preferences by id",
-        "operationId": "updatePreferences",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [{
-          "in": "body",
-          "name": "body",
-          "description": "Add shipping information for user",
-          "required": true,
-          "schema": {
-            "$ref": "#/definitions/Preferences"
-          }
-        }],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/Preferences"
-            }
-          },
-          "400": {
-            "description": "Invalid data supplied"
-          },
-          "404": {
-            "description": "Consumer id not found"
           }
         }
       }
@@ -1404,20 +1339,6 @@
         "email": {
           "type": "string"
         },
-        "mob_phone": {
-          "type": "string"
-        },
-        "password": {
-          "type": "string"
-        }
-      }
-    },
-    "LoginUser": {
-      "type": "object",
-      "properties": {
-        "username": {
-          "type": "string"
-        },
         "password": {
           "type": "string"
         }
@@ -1575,25 +1496,6 @@
           "type": "string"
         },
         "agent_designation": {
-          "type": "string"
-        }
-      }
-    },
-    "Preferences": {
-      "type": "object",
-      "properties": {
-        "customer_id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "community_id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "community_name": {
-          "type": "string"
-        },
-        "language_code": {
           "type": "string"
         }
       }

@@ -33,6 +33,19 @@ class SequelizeCommunitiesRepository {
     communities.count = (JSON.parse(JSON.stringify(communityCount))[0]['count(*)']);
     return communities;
   }
+
+  async getAgentName(...args) {
+    const communities = await this.CommunityModel.options.classMethods.getAllAgentName(
+      args[0].page,
+      args[0].limit,
+      args[0].offset
+    );
+    let rows = JSON.parse(JSON.stringify(communities));
+    communities.rows = rows;
+    communities.count = rows.length;
+    return communities;
+  }
+
 }
 
 module.exports = SequelizeCommunitiesRepository;

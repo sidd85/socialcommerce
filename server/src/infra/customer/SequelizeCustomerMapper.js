@@ -2,13 +2,13 @@ const Customer = require('src/domain/customer/Customer');
 
 const SequelizeCustomerMapper = {
   toEntity({ dataValues }) {
-    const { customer_id, name, email, password, mob_phone } = dataValues;
-    return new Customer({ customer_id, name, email, password, mob_phone });
+    const { customer_id, name, email, password } = dataValues;
+    return new Customer({ customer_id, name, email, password });
   },
 
   toDatabase(survivor) {
-    const { name, email, password, mob_phone } = survivor;
-    return { name, email, password, mob_phone };
+    const { name, email, password } = survivor;
+    return { name, email, password };
   }
 };
 

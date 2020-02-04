@@ -1,4 +1,5 @@
 module.exports = {
   GetAllCommunities: require("./GetAllCommunities"),
-  GetAllCommunitiesByText: require("./GetAllCommunitiesByText")
+  GetAllCommunitiesByText: require("./GetAllCommunitiesByText"),
+  GetAllAgentName: require("./GetAllAgentName")
 };

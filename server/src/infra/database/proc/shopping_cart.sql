@@ -39,13 +39,11 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `shopping_cart_get_products_v2`(IN inCustomerId INT)
 BEGIN
-  SELECT     sc.item_id, p.name, p.product_id, p.thumbnail, sc.attributes, sc.cart_id, sc.community_id, 
-			 p.price as originalprice, 
-			 COALESCE(NULLIF(p.discounted_price, 0), p.price) AS price,
+  SELECT     sc.item_id, p.name,p.product_id, p.thumbnail, sc.attributes, sc.cart_id, sc.community_id,
+             COALESCE(NULLIF(p.discounted_price, 0), p.price) AS price,
              sc.quantity,
-             p.price * sc.quantity AS originaltotal,
              COALESCE(NULLIF(p.discounted_price, 0),
-                      p.price) * sc.quantity AS subtotal    
+                      p.price) * sc.quantity AS subtotal
   FROM       shopping_cart sc
   INNER JOIN product p
                ON sc.product_id = p.product_id
@@ -61,7 +59,7 @@ BEGIN
     SET    quantity = inQuantity, added_on = NOW()
     WHERE  product_id = inProductId AND active = true AND customer_id = inCustomerId;
   ELSE
-    CALL shopping_cart_remove_product_v2(inProductId, inCustomerId);
+    CALL shopping_cart_remove_product(inProductId, inCustomerId);
   END IF;
 END ;;
 DELIMITER ;
