@@ -70,7 +70,8 @@ module.exports = ({
   apiRouter.use("/signup", controller("auth/SignupController"));
   apiRouter.use("/getUserInfo", controller("auth/UserInfoController"));
 
-  apiRouter.use("/banner", controller("banner/BannerController")); 
+  apiRouter.use("/banner", controller("banner/BannerController"));
+  apiRouter.use("/callInfo", controller("callInfo/CallinfoController")); 
 
   router.use("/api", apiRouter);
 

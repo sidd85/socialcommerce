@@ -25,6 +25,8 @@ const { GetAllCommunities, GetAllCommunitiesByText,GetAllAgentName} = require(".
 
 const { GetAllBanners,PostBanner } = require("./app/banner");
 
+const { GetAllCallInfo } =require("./app/callinfo");
+
 const {
   GetShippingRegions,
   GetShippingRates,
@@ -59,6 +61,7 @@ const OrderSerializer = require("./interfaces/http/store/OrderSerializer");
 const CommunitySerializer = require("./interfaces/http/community/CommunitySerializer");
 
 const BannerSerializer = require("./interfaces/http/banner/BannerSerializer");//Banner
+const CallinfoSerializer = require("./interfaces/http/callInfo/CallinfoSerializer");//Serializer
 
 const Server = require("./interfaces/http/Server");
 const router = require("./interfaces/http/router");
@@ -82,6 +85,7 @@ const SequelizeOrdersRepository = require("./infra/store/SequelizeOrdersReposito
 const SequelizeCommunitiesRepository = require("./infra/community/SequelizeCommunitiesRepository");
 
 const SequelizeBannerRepository = require("./infra/banner/SequelizeBannerRepository");//Banner
+const SequelizeCallinfoRepository = require("./infra/callInfo/SequelizeCallInfoRepository");//Banner
 
 const {
   database,
@@ -97,7 +101,8 @@ const {
   AttributeValue: AttributeValueModel,
   ProductAttribute: ProductAttributeModel,
   Community: CommunityModel,
-  Banner:BannerModel //Banner
+  Banner:BannerModel, //Banner
+  Callinfo:CallinfoModel
 } = require("./infra/database/models");
 
 const container = createContainer();
@@ -139,7 +144,8 @@ container.register({
   cartsRepository: asClass(SequelizeCartsRepository).singleton(),
   ordersRepository: asClass(SequelizeOrdersRepository).singleton(),
   communitiesRepository: asClass(SequelizeCommunitiesRepository).singleton(),
-  bannerRepository: asClass(SequelizeBannerRepository).singleton()//Banner
+  bannerRepository: asClass(SequelizeBannerRepository).singleton(),//Banner
+  callInfoRepository:asClass(SequelizeCallinfoRepository).singleton() 
 });
 
 
@@ -158,7 +164,8 @@ container.register({
   AttributeValueModel: asValue(AttributeValueModel),
   ProductAttributeModel: asValue(ProductAttributeModel),
   CommunityModel: asValue(CommunityModel),
-  BannerModel: asValue(BannerModel) //Banner
+  BannerModel: asValue(BannerModel), //Banner
+  CallinfoModel: asValue(CallinfoModel) //Callinfo
 });
 
 // Operations
@@ -199,7 +206,9 @@ container.register({
   getAllCommunitiesByText: asClass(GetAllCommunitiesByText),
   getAllAgentName: asClass(GetAllAgentName),
   getAllBanners:asClass(GetAllBanners),
-  postBanner:asClass(PostBanner)
+  postBanner:asClass(PostBanner),
+  getAllCallinfo:asClass(GetAllCallInfo)
+
 });
 
 // Serializers
@@ -215,7 +224,8 @@ container.register({
   cartSerializer: asValue(CartSerializer),
   orderSerializer: asValue(OrderSerializer),
   communitySerializer: asValue(CommunitySerializer),
-  bannerSerializer: asValue(BannerSerializer)//Banner
+  bannerSerializer: asValue(BannerSerializer),//Banner
+  callinfoSerializer:asValue(CallinfoSerializer)//Callinfo
 });
 
 container.register({
