@@ -1,4 +1,6 @@
 const { Router } = require("express");
+var express    = require('express');
+var app        = express();
 const statusMonitor = require("express-status-monitor");
 const cors = require("cors");
 const bodyParser = require("body-parser");
@@ -38,7 +40,7 @@ module.exports = ({
     .use(compression())
     .use(containerMiddleware)
     .use("/docs", swaggerMiddleware);
-
+    app.use(express.static('uploads'));     
   /*
    * Add your API routes here
    *
