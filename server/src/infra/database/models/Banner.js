@@ -21,7 +21,16 @@ module.exports = function(sequelize, DataTypes) {
       banner_product_id: {
         type: DataTypes.INTEGER(11),
         allowNull: false
+      },
+      banner_path1: {
+        type: DataTypes.TEXT,
+        allowNull: false
+      },
+      banner_path2: {
+        type: DataTypes.TEXT,
+        allowNull: false
       }
+
     },
     {
       classMethods: {

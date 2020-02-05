@@ -4,7 +4,9 @@ const BannerSerializer = {
         bannerId: banner_id,   
         bannerType: banner_type,
         bannerPath: banner_path,
-        bannerProductId: banner_product_id
+        bannerProductId: banner_product_id,
+        banner_path1:banner_path1,
+        banner_path2:banner_path2
       };
     }
   };
