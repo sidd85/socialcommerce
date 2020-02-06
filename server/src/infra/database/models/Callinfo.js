@@ -31,7 +31,7 @@ module.exports = function(sequelize, DataTypes) {
           offset
         ) {
           const callInfo = sequelize.query(
-            "SELECT * FROM `Call_info`", { type: sequelize.QueryTypes.SELECT}
+            "SELECT * FROM `call_info`", { type: sequelize.QueryTypes.SELECT}
           );          
           return callInfo;
         },        
