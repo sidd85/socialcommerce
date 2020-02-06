@@ -6,6 +6,8 @@ const compression = require("compression");
 const methodOverride = require("method-override");
 const controller = require("./utils/createControllerRoutes");
 const passport = require("../../../config/passport");
+var express = require('express');
+var app = express();
 
 module.exports = ({
   config,
@@ -38,7 +40,9 @@ module.exports = ({
     .use(compression())
     .use(containerMiddleware)
     .use("/docs", swaggerMiddleware);
-         
+
+    app.use(express.static('./public'));
+
   /*
    * Add your API routes here
    *
@@ -79,5 +83,3 @@ module.exports = ({
 
   return router;
 };
-
-//test

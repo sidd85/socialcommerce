@@ -65,10 +65,14 @@ module.exports = function(sequelize, DataTypes) {
           );
           return count;
         },
+
+     
+        
         getAllAgentName: function(searchText) {
-          const count = sequelize.query(
-            "SELECT community_name  FROM `community`;", { type: sequelize.QueryTypes.SELECT}          
-            );
+          const count = sequelize.query(            
+            "SELECT community.*, customer.name FROM community JOIN customer ON community.agent_id=customer.customer_id", { type: sequelize.QueryTypes.SELECT}           
+          );
+          console.log(count);
           return count;
         },
       },
