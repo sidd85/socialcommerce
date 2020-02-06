@@ -3,8 +3,8 @@ development: {
 username: 'root',
 password: 'R00tr00t',
 database: 'ecommerce',
-host: '127.0.0.1',
-port: '3307',
+host: 'http://server.soccofresh.com/',//'127.0.0.1',
+port: 4080,//'3307',
 dialect: 'mysql'
 },
 test: {
@@ -20,10 +20,10 @@ production: {
 username: 'root',
 password: 'R00tr00t',
 database: 'ecommerce',
-host: '127.0.0.1',
-port: '3307',
+host: 'http://server.soccofresh.com/',//'127.0.0.1',
+port: 4080,//'3307',
 dialect: 'mysql'
 },
 };
-//ttttt
+
 //production: process.env.DATABASE_URL
