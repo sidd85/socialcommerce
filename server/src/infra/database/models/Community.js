@@ -67,9 +67,8 @@ module.exports = function(sequelize, DataTypes) {
         },
         getAllAgentName: function(searchText) {
           const count = sequelize.query(
-            "SELECT community_name  FROM `community`;", { type: sequelize.QueryTypes.SELECT}           
-          );
-          console.log(count);
+            "SELECT community_name  FROM `community`;", { type: sequelize.QueryTypes.SELECT}          
+            );
           return count;
         },
       },
