@@ -46,6 +46,18 @@ class SequelizeCommunitiesRepository {
     return communities;
   }
 
+  async getOrderDetail(...args) {
+    const communities = await this.CommunityModel.options.classMethods.getOrderDetail(
+      args[0].page,
+      args[0].limit,
+      args[0].offset
+    );
+    let rows = JSON.parse(JSON.stringify(communities));
+    communities.rows = rows;
+    communities.count = rows.length;
+    return communities;
+  }
+
 }
 
 module.exports = SequelizeCommunitiesRepository;

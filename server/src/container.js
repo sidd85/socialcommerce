@@ -21,7 +21,7 @@ const { GetAllDepartments } = require("./app/department");
 
 const { GetAllCategories, GetAllCategoriesByDepartment, GetAllCategoriesByCommunity } = require("./app/category");
 
-const { GetAllCommunities, GetAllCommunitiesByText,GetAllAgentName} = require("./app/community");
+const { GetAllCommunities, GetAllCommunitiesByText,GetAllAgentName,GetOrderDetail} = require("./app/community");
 const { GetAllBanners,PostBanner } = require("./app/banner");
 const {
   GetShippingRegions,
@@ -210,6 +210,7 @@ container.register({
   getAllCommunities: asClass(GetAllCommunities),
   getAllCommunitiesByText: asClass(GetAllCommunitiesByText),
   getAllAgentName: asClass(GetAllAgentName),
+  getOrderDetail:asClass(GetOrderDetail),
   getPreferences: asClass(GetPreferences),
   updatePreferences: asClass(UpdatePreferences),
   getAllBanners:asClass(GetAllBanners),

@@ -1,4 +1,4 @@
-const { Router } = require("express");
+ const { Router } = require("express");
 const paginate = require("express-paginate");
 const { inject } = require("awilix-express");
 const Status = require("http-status");
@@ -16,9 +16,14 @@ const CommunityController = {
       this.getAllCommunitiesByText
     );
     router.get("/agentName", inject("getAllAgentName"), this.getAllAgentName);
-    return router;
+    
+    
+    router.get("/getOrderDetail", inject("getOrderDetail"), this.getOrderDetail);
+  return router;
   },
 
+  
+  
   index(req, res, next) {
     const { getAllCommunities, communitySerializer } = req;
     const { SUCCESS, ERROR } = getAllCommunities.outputs;
@@ -91,6 +96,31 @@ const CommunityController = {
       .on(ERROR, next);
 
       getAllAgentName.execute(
+      req.query.page,
+      req.query.limit
+    );
+  },
+  getOrderDetail(req, res, next) {
+    const { getOrderDetail, communitySerializer } = req;
+    const { SUCCESS, ERROR } = getOrderDetail.outputs;
+    getOrderDetail
+      .on(SUCCESS, communities => {
+        const itemCount = communities.count;
+        const pageCount = Math.ceil(itemCount / req.query.limit);
+        const limit = req.query.limit;
+        const currentPage = req.query.page;
+        const results = {
+          communities: communities.rows.map(communitySerializer.serialize),
+          pageCount,
+          itemCount,
+          limit,
+          currentPage
+        };
+        res.status(Status.OK).json(results);
+      })
+      .on(ERROR, next);
+
+      getOrderDetail.execute(
       req.query.page,
       req.query.limit
     );

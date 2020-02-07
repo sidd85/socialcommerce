@@ -71,10 +71,15 @@ module.exports = function(sequelize, DataTypes) {
         getAllAgentName: function(searchText) {
           const count = sequelize.query(            
             "SELECT community.*, customer.name FROM community JOIN customer ON community.agent_id=customer.customer_id", { type: sequelize.QueryTypes.SELECT}           
-          );
-          console.log(count);
+          );         
           return count;
         },
+        getOrderDetail: function(searchText) {
+          const count = sequelize.query(            
+            "SELECT  order_detail.* FROM community JOIN order_detail ON community.community_id=order_detail.community_id", { type: sequelize.QueryTypes.SELECT}           
+          );         
+          return count;
+        }
       },
       tableName: "community",
       timestamps: false
