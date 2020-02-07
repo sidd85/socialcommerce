@@ -7,17 +7,10 @@ var sequelize = require("../src/infra/database/models");
 
 // Telling passport we want to use a Local Strategy. In other words, we want login with a username/email and password
 passport.use(new LocalStrategy(
-  // Our user will sign in using an email, rather than a "username"
-  {
-    usernameField: "email"
-  },
-  function(email, password, done) {
+  function(username, password, done) {
+    var criteria = (username.indexOf('@') === -1) ? {where: {mob_phone: username}} : {where: {email: username}};
     // When a user tries to sign in this code runs
-    sequelize.Customer.findOne({
-      where: {
-        email: email
-      }
-    }).then(function(dbCustomer) {
+    sequelize.Customer.findOne(criteria).then(function(dbCustomer) {
       // If there's no user with the given email
       if (!dbCustomer) {
         return done(null, false, {

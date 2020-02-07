@@ -1,5 +1,5 @@
 module.exports = {
-  GetAllBanners: require('./GetAllBanners'),
-  PostBanner:require('./PostBanner')
-};
-  
+    GetAllBanners: require('./GetAllBanners'),
+    PostBanner:require('./PostBanner')
+  };
+    

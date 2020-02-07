@@ -22,11 +22,7 @@ const { GetAllDepartments } = require("./app/department");
 const { GetAllCategories, GetAllCategoriesByDepartment, GetAllCategoriesByCommunity } = require("./app/category");
 
 const { GetAllCommunities, GetAllCommunitiesByText,GetAllAgentName} = require("./app/community");
-
 const { GetAllBanners,PostBanner } = require("./app/banner");
-
-const { GetAllCallInfo } =require("./app/callinfo");
-
 const {
   GetShippingRegions,
   GetShippingRates,
@@ -46,7 +42,9 @@ const {
 } = require("./app/store");
 
 const { Banner } = require("./app/banner");//Banner
+const { GetAllCallInfo } =require("./app/callinfo");
 
+const {GetPreferences, UpdatePreferences} = require("./app/preferences");
 
 const AuthSerializer = require("./interfaces/http/auth/AuthSerializer");
 const ProductSerializer = require("./interfaces/http/product/ProductSerializer");
@@ -59,10 +57,10 @@ const ShippingRegionSerializer = require("./interfaces/http/shipping/ShippingReg
 const CartSerializer = require("./interfaces/http/store/CartSerializer");
 const OrderSerializer = require("./interfaces/http/store/OrderSerializer");
 const CommunitySerializer = require("./interfaces/http/community/CommunitySerializer");
+const PreferencesSerializer = require("./interfaces/http/preferences/PreferencesSerializer");
 
 const BannerSerializer = require("./interfaces/http/banner/BannerSerializer");//Banner
 const CallinfoSerializer = require("./interfaces/http/callInfo/CallinfoSerializer");//Serializer
-
 const Server = require("./interfaces/http/Server");
 const router = require("./interfaces/http/router");
 const loggerMiddleware = require("./interfaces/http/logging/loggerMiddleware");
@@ -83,9 +81,10 @@ const SequelizeShippingsRepository = require("./infra/shipping/SequelizeShipping
 const SequelizeCartsRepository = require("./infra/store/SequelizeCartsRepository");
 const SequelizeOrdersRepository = require("./infra/store/SequelizeOrdersRepository");
 const SequelizeCommunitiesRepository = require("./infra/community/SequelizeCommunitiesRepository");
+const SequelizePreferencesRepository = require("./infra/preferences/SequelizePreferencesRepository");
 
-const SequelizeBannerRepository = require("./infra/banner/SequelizeBannerRepository");//Banner
-const SequelizeCallinfoRepository = require("./infra/callInfo/SequelizeCallInfoRepository");//Banner
+const SequelizeBannerRepository = require("./infra/banner/SequelizeBannerRepository");
+const SequelizeCallinfoRepository = require("./infra/callInfo/SequelizeCallInfoRepository");
 
 const {
   database,
@@ -101,6 +100,7 @@ const {
   AttributeValue: AttributeValueModel,
   ProductAttribute: ProductAttributeModel,
   Community: CommunityModel,
+  Preferences: PreferencesModel,
   Banner:BannerModel, //Banner
   Callinfo:CallinfoModel
 } = require("./infra/database/models");
@@ -138,16 +138,20 @@ container.register({
   productsRepository: asClass(SequelizeProductsRepository).singleton(),
   departmentsRepository: asClass(SequelizeDepartmentsRepository).singleton(),
   categoriesRepository: asClass(SequelizeCategoriesRepository).singleton(),
-  shippingRegionsRepository: asClass(SequelizeShippingRegionsRepository).singleton(),
-  shippingRatesRepository: asClass(SequelizeShippingRatesRepository).singleton(),
+  shippingRegionsRepository: asClass(
+    SequelizeShippingRegionsRepository
+  ).singleton(),
+  shippingRatesRepository: asClass(
+    SequelizeShippingRatesRepository
+  ).singleton(),
   shippingsRepository: asClass(SequelizeShippingsRepository).singleton(),
   cartsRepository: asClass(SequelizeCartsRepository).singleton(),
   ordersRepository: asClass(SequelizeOrdersRepository).singleton(),
   communitiesRepository: asClass(SequelizeCommunitiesRepository).singleton(),
+  preferencesRepository: asClass(SequelizePreferencesRepository).singleton(),
   bannerRepository: asClass(SequelizeBannerRepository).singleton(),//Banner
   callInfoRepository:asClass(SequelizeCallinfoRepository).singleton() 
 });
-
 
 // Database
 container.register({
@@ -164,6 +168,7 @@ container.register({
   AttributeValueModel: asValue(AttributeValueModel),
   ProductAttributeModel: asValue(ProductAttributeModel),
   CommunityModel: asValue(CommunityModel),
+  PreferencesModel: asValue(PreferencesModel),
   BannerModel: asValue(BannerModel), //Banner
   CallinfoModel: asValue(CallinfoModel) //Callinfo
 });
@@ -205,10 +210,10 @@ container.register({
   getAllCommunities: asClass(GetAllCommunities),
   getAllCommunitiesByText: asClass(GetAllCommunitiesByText),
   getAllAgentName: asClass(GetAllAgentName),
+  getPreferences: asClass(GetPreferences),
+  updatePreferences: asClass(UpdatePreferences),
   getAllBanners:asClass(GetAllBanners),
-  postBanner:asClass(PostBanner),
   getAllCallinfo:asClass(GetAllCallInfo)
-
 });
 
 // Serializers
@@ -224,6 +229,7 @@ container.register({
   cartSerializer: asValue(CartSerializer),
   orderSerializer: asValue(OrderSerializer),
   communitySerializer: asValue(CommunitySerializer),
+  preferencesSerializer: asValue(PreferencesSerializer),
   bannerSerializer: asValue(BannerSerializer),//Banner
   callinfoSerializer:asValue(CallinfoSerializer)//Callinfo
 });

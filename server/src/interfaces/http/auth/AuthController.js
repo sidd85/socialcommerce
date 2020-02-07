@@ -29,7 +29,6 @@ const AuthController = {
         });
       })
       .on(ERROR, next);
-     
 
     login.execute(req.user);
   }

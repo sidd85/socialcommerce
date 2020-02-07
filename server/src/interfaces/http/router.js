@@ -9,6 +9,7 @@ const passport = require("../../../config/passport");
 var express = require('express');
 var app = express();
 
+
 module.exports = ({
   config,
   containerMiddleware,
@@ -40,9 +41,8 @@ module.exports = ({
     .use(compression())
     .use(containerMiddleware)
     .use("/docs", swaggerMiddleware);
-
+   
     app.use(express.static('./public'));
-
   /*
    * Add your API routes here
    *
@@ -64,6 +64,8 @@ module.exports = ({
 
   apiRouter.use("/store", controller("store/StoresController"));
 
+  apiRouter.use("/preferences", controller("preferences/PreferencesController"));
+
   apiRouter.use(
     "/login",
     passport.authenticate("local"),
@@ -75,8 +77,7 @@ module.exports = ({
   apiRouter.use("/getUserInfo", controller("auth/UserInfoController"));
 
   apiRouter.use("/banner", controller("banner/BannerController"));
-  apiRouter.use("/callInfo", controller("callInfo/CallinfoController")); 
-
+  apiRouter.use("/callInfo", controller("callInfo/CallinfoController"));   
   router.use("/api", apiRouter);
 
   router.use(errorHandler);

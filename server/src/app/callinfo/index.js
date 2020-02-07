@@ -1,4 +1,4 @@
 module.exports = {
-  GetAllCallInfo: require('./GetAllCallInfo')
-};
-  
+    GetAllCallInfo: require('./GetAllCallInfo')
+  };
+    
