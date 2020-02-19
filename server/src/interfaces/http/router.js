@@ -9,10 +9,10 @@ const passport = require("../../../config/passport");
 var express = require('express');
 var app = express();
 
-const ngrok = require('ngrok');
-(async function() {
-  const url = await ngrok.connect();
-})();
+//const ngrok = require('ngrok');
+//(async function() {
+ // const url = await ngrok.connect();
+//})();
 module.exports = ({
   config,
   containerMiddleware,
