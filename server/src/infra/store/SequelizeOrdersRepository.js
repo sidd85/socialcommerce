@@ -29,6 +29,11 @@ class SequelizeOrdersRepository {
     const order = await this.OrdersModel.options.classMethods.getOrder(user, orderData);
     return order;
   }
+
+  async getAllOrderlist( orderData) {
+    const order = await this.OrdersModel.options.classMethods.getAllOrderlist(orderData);  
+    return order;
+  }
 }
 
 module.exports = SequelizeOrdersRepository;

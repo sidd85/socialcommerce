@@ -52,6 +52,7 @@
     "morgan": "^1.9.1",
     "mysql": "^2.16.0",
     "mysql2": "^1.6.5",
+    "ngrok": "^3.2.7",
     "nodemailer": "^6.0.0",
     "nodemailer-promise": "^2.0.0",
     "passport": "^0.4.0",

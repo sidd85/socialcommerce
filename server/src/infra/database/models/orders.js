@@ -115,7 +115,20 @@ module.exports = function(sequelize, DataTypes) {
             }
           );
           return updated;
-        }
+        },
+        getAllOrderlist: function(orderData) {
+          console.log(orderData)
+          const getOrder = sequelize.query(
+            "SELECT  orders.* FROM customer JOIN orders ON customer.customer_id=orders.customer_id where orders.customer_id = :customer_id ",            
+            {
+              replacements: {
+                customer_id: orderData.customer_id             
+              },
+              type: sequelize.QueryTypes.SELECT
+            }
+          );
+          return getOrder;
+        },
       },
       tableName: "orders",
       timestamps: false

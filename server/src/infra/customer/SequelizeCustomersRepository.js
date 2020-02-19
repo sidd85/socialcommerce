@@ -91,7 +91,14 @@ class SequelizeCustomersRepository {
 
       throw error;
     }
+  } 
+
+
+  async editUser( orderData) {
+    const order = await this.CustomerModel.options.classMethods.editUser(orderData);  
+    return order;
   }
+
 }
 
 module.exports = SequelizeCustomersRepository;

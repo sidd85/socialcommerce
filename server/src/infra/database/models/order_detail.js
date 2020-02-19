@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('order_detail', {
+  const orderDetail= sequelize.define('order_detail', {
     item_id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -29,6 +29,22 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     }
   }, {
-    tableName: 'order_detail'
+    classMethods: { 
+      getAllOrderDetail: function( orderData) { 
+        const getOrder = sequelize.query(
+          "SELECT  order_detail.* FROM `order_detail` WHERE  order_id=:id", { 
+            replacements: {
+              id: orderData.order_id              
+            },
+            type: sequelize.QueryTypes.SELECT} 
+        );       
+        return getOrder;
+      }     
+    },
+    tableName: 'order_detail',
+    timestamps: false    
   });
+  return  orderDetail;
 };
+
+

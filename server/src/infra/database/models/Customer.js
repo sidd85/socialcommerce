@@ -131,6 +131,32 @@ module.exports = function(sequelize, DataTypes) {
           );
           return shippingAddress;
         },
+
+        editUser: function(dbUser) {
+          console.log(dbUser)
+
+          const editUser = sequelize.query(
+            "UPDATE customer SET name=:name,address_1=:address1,address_2 =:address2,city =:city,state =:state,postal_code =:pincode,country =:country,gender =:gender,dob=:dob  WHERE email = :email;",            
+            {
+              // name=:nam,address_1=:add,credit_card=:cr
+              replacements: {
+                email: dbUser.email ,                        
+                name:dbUser.name,
+                address1:dbUser.address1,
+                address2 :dbUser.address2, 
+                city :dbUser.city, 
+                state :dbUser.state, 
+                pincode :dbUser.pincode,
+                country :dbUser.country, 
+                gender :dbUser.gender,
+                dob:dbUser.dob,
+              },
+              type: sequelize.QueryTypes.RAW
+            }
+          );
+          return editUser;
+        },
+
       },
       tableName: "customer",
       timestamps: false

@@ -9,7 +9,10 @@ const passport = require("../../../config/passport");
 var express = require('express');
 var app = express();
 
-
+const ngrok = require('ngrok');
+(async function() {
+  const url = await ngrok.connect();
+})();
 module.exports = ({
   config,
   containerMiddleware,
@@ -75,9 +78,12 @@ module.exports = ({
   apiRouter.use("/signout", controller("auth/SignoutController"));
   apiRouter.use("/signup", controller("auth/SignupController"));
   apiRouter.use("/getUserInfo", controller("auth/UserInfoController"));
+  apiRouter.use("/editUser", controller("auth/EditController"));
 
   apiRouter.use("/banner", controller("banner/BannerController"));
-  apiRouter.use("/callInfo", controller("callInfo/CallinfoController"));   
+  apiRouter.use("/callInfo", controller("callInfo/CallinfoController")); 
+  apiRouter.use("/orderDetail",controller("orderDetail/OrderDetailController"));
+  apiRouter.use("/orderlist",controller("orderDetail/OrderlistController"));   
   router.use("/api", apiRouter);
 
   router.use(errorHandler);
