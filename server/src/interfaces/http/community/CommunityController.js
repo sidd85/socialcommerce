@@ -19,6 +19,8 @@ const CommunityController = {
     
     
     router.get("/getOrderDetail", inject("getOrderDetail"), this.getOrderDetail);
+    router.post("/communityDetail", inject("communityDetail"), this.communityDetail);
+
   return router;
   },
 
@@ -124,7 +126,22 @@ const CommunityController = {
       req.query.page,
       req.query.limit
     );
-  }
+  },
+  communityDetail(req, res, next) {
+    const { communityDetail, communitySerializer } = req;
+    const { SUCCESS, ERROR, NOT_FOUND, UNAUTHORIZED } = communityDetail.outputs;
+    communityDetail
+      .on(SUCCESS, order => {
+        const results = order;
+        res.status(Status.OK).json(results);
+      })
+      .on(UNAUTHORIZED, message => {
+        res.status(Status.UNAUTHORIZED).json({ message: message });
+      })
+      .on(ERROR, next);
+      communityDetail.execute(req.body);
+  },
+
 };
 
 module.exports = CommunityController;

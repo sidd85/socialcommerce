@@ -2,43 +2,29 @@ const { Router } = require('express');
 const { inject } = require('awilix-express');
 const Status = require('http-status');
 
-const CityInfoController = {
+const CityController = {
  
   get router() {
     const router = Router();
-    router.use(inject('cityinfoSerializer'));    
-
-    router.get("/",inject("getAllCity"), this.getAllCity);
-
+    router.use(inject("citySerializer"));          
+    router.post("/",inject("getAllCity"), this.getAllCity);
     return router;
   },
-
-  index(req, res, next) {
-    const { getAllCity, callinfoSerializer } = req;
-    const { SUCCESS, ERROR } = getAllCity.outputs;
+  getAllCity(req, res, next) {
+    const { getAllCity, citySerializer } = req;
+    const { SUCCESS, ERROR, NOT_FOUND, UNAUTHORIZED } = getAllCity.outputs;
     getAllCity
-      .on(SUCCESS, callinfo => {
-        // console.log(callinfo);
-        const itemCount = callinfo.count;
-        const pageCount = Math.ceil(itemCount / req.query.limit);
-        const limit = req.query.limit;
-        const currentPage = req.query.page;
-        const results = {
-          callinfo: callinfo.rows.map(cityinfoSerializer.serialize),
-          pageCount,
-          itemCount,
-          limit,
-          currentPage
-        };        
+      .on(SUCCESS, order => {
+        const results = order;
         res.status(Status.OK).json(results);
       })
+      .on(UNAUTHORIZED, message => {
+        res.status(Status.UNAUTHORIZED).json({ message: message });
+      })
       .on(ERROR, next);
-
-      getAllCity.execute(
-      req.query.page,
-      req.query.limit
-    );
+      getAllCity.execute(req.body);
   },
-};
 
-module.exports = CityInfoController;
+};
+module.exports = CityController;
+

@@ -76,6 +76,17 @@ module.exports = function(sequelize, DataTypes) {
             "SELECT  order_detail.* FROM community JOIN order_detail ON community.community_id=order_detail.community_id", { type: sequelize.QueryTypes.SELECT}           
           );         
           return count;
+        },
+        communityDetail: function(orderData) { 
+            console.log(orderData)
+          const getOrder = sequelize.query(
+            "SELECT  * FROM  community  WHERE  agent_id=:id", { 
+              replacements: {
+                id: orderData.value              
+              },
+              type: sequelize.QueryTypes.SELECT} 
+          );       
+          return getOrder;
         }
       },
       tableName: "community",

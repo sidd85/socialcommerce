@@ -1,10 +1,11 @@
-// const OrderDetailMapper = require("./SequelizeOrderlistMapper");
+const CityMapper = require("./SequelizeCityMapper");
 
 class SequelizeCityRepository {
-  constructor({ OrdersModel }) {
-    this.OrdersModel = this.OrdersModel;
+  constructor({ CityModel }) {
+    this.CityModel = this.CityModel;
   }  
   async getAllCity( orderData) {
+      console.log(orderData,"@@@@@@@@@@@@@@@")
     const order = await this.CityModel.options.classMethods.getAllCity(orderData);  
     return order;
   }

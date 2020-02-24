@@ -9,7 +9,10 @@ const passport = require("../../../config/passport");
 var express = require('express');
 var app = express();
 
-
+// const ngrok = require('ngrok');
+// (async function() {
+//   const url = await ngrok.connect();
+// })();
 module.exports = ({
   config,
   containerMiddleware,
@@ -41,7 +44,7 @@ module.exports = ({
     .use(compression())
     .use(containerMiddleware)
     .use("/docs", swaggerMiddleware);
-   
+
     app.use(express.static('./public'));
   /*
    * Add your API routes here
@@ -76,6 +79,9 @@ module.exports = ({
   apiRouter.use("/signup", controller("auth/SignupController"));
   apiRouter.use("/getUserInfo", controller("auth/UserInfoController"));
   apiRouter.use("/editUser", controller("auth/EditController"));
+  
+ 
+
 
   apiRouter.use("/banner", controller("banner/BannerController"));
   apiRouter.use("/callInfo", controller("callInfo/CallinfoController")); 
@@ -83,7 +89,7 @@ module.exports = ({
   apiRouter.use("/orderlist",controller("orderDetail/OrderlistController"));
   apiRouter.use("/country",controller("country/CountryController"));
   apiRouter.use("/state",controller("state/StateController"));
-  // apiRouter.use("/city",controller("city/CityController"));
+  apiRouter.use("/city",controller("city/CityController"));
   
   
   

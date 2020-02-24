@@ -21,7 +21,7 @@ const { GetAllDepartments } = require("./app/department");
 
 const { GetAllCategories, GetAllCategoriesByDepartment, GetAllCategoriesByCommunity } = require("./app/category");
 
-const { GetAllCommunities, GetAllCommunitiesByText,GetAllAgentName,GetOrderDetail} = require("./app/community");
+const { GetAllCommunities, GetAllCommunitiesByText,GetAllAgentName,GetOrderDetail,CommunityDetail} = require("./app/community");
 const { GetAllBanners,PostBanner } = require("./app/banner");
 const {
   GetShippingRegions,
@@ -44,10 +44,9 @@ const {
 const { Banner } = require("./app/banner");//Banner
 const { GetAllCallInfo } =require("./app/callinfo");//callinfo
 const { GetAllOrderDetail,GetAllOrderlist} = require("./app/orderDetail");//orderDetail
-const {GetAllCountry,GetAllState}=require("./app/Country_State_City_Dependancy")//city country state dependancy
+const {GetAllCountry,GetAllState,GetAllCity}=require("./app/Country_State_City_Dependancy")//city country state dependancy
 
 const {GetPreferences, UpdatePreferences} = require("./app/preferences");
-
 
 const AuthSerializer = require("./interfaces/http/auth/AuthSerializer");
 const ProductSerializer = require("./interfaces/http/product/ProductSerializer");
@@ -67,6 +66,7 @@ const CallinfoSerializer = require("./interfaces/http/callInfo/CallinfoSerialize
 const OrderDetailSerializer = require("./interfaces/http/orderDetail/OrderDetailSerializer");
 const CountrySerializer = require("./interfaces/http/country/CountrySerializer");
 const StateSerializer = require("./interfaces/http/state/StateSerializer");
+const CitySerializer = require("./interfaces/http/city/CitySerializer");
 
 const Server = require("./interfaces/http/Server");
 const router = require("./interfaces/http/router");
@@ -95,6 +95,7 @@ const SequelizeCallinfoRepository = require("./infra/callInfo/SequelizeCallInfoR
 const SequelizeOrderDetailRepository = require("./infra/orderDetail/SequelizeOrderDetailRepository");
 const SequelizeCountryRepository = require("./infra/CountryStateCity/SequelizeCountryRepository");
 const SequelizeStateRepository=require("./infra/CountryStateCity/SequelizeStateRepository");
+const SequelizeCityRepository=require("./infra/CountryStateCity/SequelizeCityRepository");
 const {
   database,
   Customer: CustomerModel,
@@ -114,7 +115,8 @@ const {
   Callinfo:CallinfoModel,//callinfo
   order_detail:OrderDetailModel,
   Country:CountryModel,
-  State:StateModel
+  State:StateModel,
+  City:CityModel
 } = require("./infra/database/models");
 
 const container = createContainer();
@@ -165,7 +167,8 @@ container.register({
   callInfoRepository:asClass(SequelizeCallinfoRepository).singleton(),//callinfo
   OrderDetailRepository:asClass(SequelizeOrderDetailRepository).singleton(),//orderdetail
   countryRepository:asClass(SequelizeCountryRepository).singleton(),//Country 
-  stateRepository:asClass(SequelizeStateRepository)
+  stateRepository:asClass(SequelizeStateRepository),
+  cityRepository:asClass(SequelizeCityRepository) 
 });
  
 // Database
@@ -188,7 +191,8 @@ container.register({
   CallinfoModel: asValue(CallinfoModel), //Callinfo
   OrderDetailModel: asValue(OrderDetailModel), //orderDetail
   CountryModel:asValue(CountryModel),
-  StateModel:asValue(StateModel)
+  StateModel:asValue(StateModel),
+  CityModel:asValue(CityModel)
 });
 
 // Operations
@@ -237,7 +241,9 @@ container.register({
   getAllOrderDetail:asClass(GetAllOrderDetail),
   getAllOrderlist:asClass(GetAllOrderlist),
   getAllCountry:asClass(GetAllCountry),
-  getAllState:asClass(GetAllState)
+  getAllState:asClass(GetAllState),
+  getAllCity:asClass(GetAllCity),
+  communityDetail:asClass(CommunityDetail)
 });
 
 // Serializers
@@ -258,7 +264,8 @@ container.register({
   callinfoSerializer:asValue(CallinfoSerializer),//Callinfo
   orderDetailSerializer:asValue(OrderDetailSerializer),//OrderDetail
   countrySerializer:asValue(CountrySerializer),
-  stateSerializer:asValue(StateSerializer)
+  stateSerializer:asValue(StateSerializer),
+  citySerializer:asValue(CitySerializer)
 });
 
 container.register({
