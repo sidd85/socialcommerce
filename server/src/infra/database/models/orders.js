@@ -118,11 +118,14 @@ module.exports = function(sequelize, DataTypes) {
         },
         getAllOrderlist: function(orderData) {
           console.log(orderData)
-          const getOrder = sequelize.query(
-            "SELECT  orders.* FROM customer JOIN orders ON customer.customer_id=orders.customer_id where orders.customer_id = :customer_id ",            
+          const getOrder = sequelize.query(  
+            
+            "SELECT c.name,o.order_id,o.created_on,o.total_amount FROM customer as c JOIN community as co ON c.customer_id = co.agent_id JOIN orders as o ON co.community_id = o.community_id WHERE co.community_id =:id",
+
+            // "SELECT  orders.* FROM customer JOIN orders ON customer.customer_id=orders.customer_id where orders.customer_id = :customer_id ",            
             {
               replacements: {
-                customer_id: orderData.customer_id             
+                id: orderData.customer_id             
               },
               type: sequelize.QueryTypes.SELECT
             }

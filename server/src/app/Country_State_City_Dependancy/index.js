@@ -1,6 +1,6 @@
-// module.exports = {
-//     GetAllCountry: require("./GetAllCountry"),
-//     GetAllState: require("./GetAllState"),
-//     GetAllCity: require("./GetAllCity")
-//   };
+module.exports = {
+    GetAllCountry: require("./GetAllCountry"),
+    GetAllState: require("./GetAllState"),
+    GetAllCity: require("./GetAllCity")
+  };
   

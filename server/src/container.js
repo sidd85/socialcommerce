@@ -44,6 +44,7 @@ const {
 const { Banner } = require("./app/banner");//Banner
 const { GetAllCallInfo } =require("./app/callinfo");//callinfo
 const { GetAllOrderDetail,GetAllOrderlist} = require("./app/orderDetail");//orderDetail
+const {GetAllCountry,GetAllState}=require("./app/Country_State_City_Dependancy")//city country state dependancy
 
 const {GetPreferences, UpdatePreferences} = require("./app/preferences");
 
@@ -64,6 +65,8 @@ const PreferencesSerializer = require("./interfaces/http/preferences/Preferences
 const BannerSerializer = require("./interfaces/http/banner/BannerSerializer");//Banner
 const CallinfoSerializer = require("./interfaces/http/callInfo/CallinfoSerializer");//callinfo
 const OrderDetailSerializer = require("./interfaces/http/orderDetail/OrderDetailSerializer");
+const CountrySerializer = require("./interfaces/http/country/CountrySerializer");
+const StateSerializer = require("./interfaces/http/state/StateSerializer");
 
 const Server = require("./interfaces/http/Server");
 const router = require("./interfaces/http/router");
@@ -90,7 +93,8 @@ const SequelizePreferencesRepository = require("./infra/preferences/SequelizePre
 const SequelizeBannerRepository = require("./infra/banner/SequelizeBannerRepository");
 const SequelizeCallinfoRepository = require("./infra/callInfo/SequelizeCallInfoRepository");
 const SequelizeOrderDetailRepository = require("./infra/orderDetail/SequelizeOrderDetailRepository");
-
+const SequelizeCountryRepository = require("./infra/CountryStateCity/SequelizeCountryRepository");
+const SequelizeStateRepository=require("./infra/CountryStateCity/SequelizeStateRepository");
 const {
   database,
   Customer: CustomerModel,
@@ -108,7 +112,9 @@ const {
   Preferences: PreferencesModel,
   Banner:BannerModel, //Banner
   Callinfo:CallinfoModel,//callinfo
-  order_detail:OrderDetailModel
+  order_detail:OrderDetailModel,
+  Country:CountryModel,
+  State:StateModel
 } = require("./infra/database/models");
 
 const container = createContainer();
@@ -157,7 +163,9 @@ container.register({
   preferencesRepository: asClass(SequelizePreferencesRepository).singleton(),
   bannerRepository: asClass(SequelizeBannerRepository).singleton(),//Banner
   callInfoRepository:asClass(SequelizeCallinfoRepository).singleton(),//callinfo
-  OrderDetailRepository:asClass(SequelizeOrderDetailRepository).singleton()//orderdetail 
+  OrderDetailRepository:asClass(SequelizeOrderDetailRepository).singleton(),//orderdetail
+  countryRepository:asClass(SequelizeCountryRepository).singleton(),//Country 
+  stateRepository:asClass(SequelizeStateRepository)
 });
  
 // Database
@@ -178,7 +186,9 @@ container.register({
   PreferencesModel: asValue(PreferencesModel),
   BannerModel: asValue(BannerModel), //Banner
   CallinfoModel: asValue(CallinfoModel), //Callinfo
-  OrderDetailModel: asValue(OrderDetailModel) //orderDetail
+  OrderDetailModel: asValue(OrderDetailModel), //orderDetail
+  CountryModel:asValue(CountryModel),
+  StateModel:asValue(StateModel)
 });
 
 // Operations
@@ -225,7 +235,9 @@ container.register({
   getAllBanners:asClass(GetAllBanners),
   getAllCallinfo:asClass(GetAllCallInfo),
   getAllOrderDetail:asClass(GetAllOrderDetail),
-  getAllOrderlist:asClass(GetAllOrderlist)
+  getAllOrderlist:asClass(GetAllOrderlist),
+  getAllCountry:asClass(GetAllCountry),
+  getAllState:asClass(GetAllState)
 });
 
 // Serializers
@@ -244,7 +256,9 @@ container.register({
   preferencesSerializer: asValue(PreferencesSerializer),
   bannerSerializer: asValue(BannerSerializer),//Banner
   callinfoSerializer:asValue(CallinfoSerializer),//Callinfo
-  orderDetailSerializer:asValue(OrderDetailSerializer)//OrderDetail
+  orderDetailSerializer:asValue(OrderDetailSerializer),//OrderDetail
+  countrySerializer:asValue(CountrySerializer),
+  stateSerializer:asValue(StateSerializer)
 });
 
 container.register({
