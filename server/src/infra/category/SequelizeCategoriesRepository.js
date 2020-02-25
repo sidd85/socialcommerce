@@ -42,6 +42,32 @@ class SequelizeCategoriesRepository {
     categories.count = rows.length;
     return categories;
   }
+
+  async getCategory( Data) {
+  
+    const data = await this.CategoryModel.options.classMethods.getCategory(Data);  
+    return data;
+    //   if(order.length==1){
+    //   return {success:true,message:"successfully update data",value:1};
+    // }else{
+    //   return {success:false,message:"successfully update data",value:0};
+    // }
+    
+  }
+
+  async getSubCategory( Data) {
+  
+    const data = await this.CategoryModel.options.classMethods.getSubCategory(Data);  
+    return data;
+    //   if(order.length==1){
+    //   return {success:true,message:"successfully update data",value:1};
+    // }else{
+    //   return {success:false,message:"successfully update data",value:0};
+    // }
+    
+  }
+  getSubCategory
+
 }
 
 module.exports = SequelizeCategoriesRepository;

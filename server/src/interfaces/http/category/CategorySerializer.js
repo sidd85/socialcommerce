@@ -1,10 +1,11 @@
 const CategorySerializer = {
-  serialize({ category_id, name, description }) {
+  serialize({ category_id, name, description,sub_category_id}) {
     let categoryId = category_id;
     return {
       categoryId,
       name,
-      description
+      description,
+      sub_category_id      
     };
   }
 };

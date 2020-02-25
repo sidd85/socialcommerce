@@ -1,4 +1,3 @@
-production: process.env.DATABASE_URL
 module.exports = {
   development: {
   username: 'root',

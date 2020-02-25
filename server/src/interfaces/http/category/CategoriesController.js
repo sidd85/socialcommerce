@@ -17,6 +17,10 @@ const CategoriesController = {
     router.get("/", inject("getAllCategories"), this.index);
     router.get("/findByDepartment", inject("getAllCategoriesByDepartment"), this.getAllCategoriesByDepartment);
     router.get("/findByCommunity", inject("getAllCategoriesByCommunity"), this.getAllCategoriesByCommunity);
+   
+    router.post("/findByCategory", inject("getCategory"), this.getCategory);
+    router.post("/findBySubCategory", inject("getSubCategory"), this.getSubCategory);
+
     return router;
   },
 
@@ -98,7 +102,38 @@ const CategoriesController = {
       req.query.page,
       req.query.limit
     );
-  }
+  },
+
+  getCategory(req, res, next) {
+    const { getCategory, categorySerializer } = req;
+    const { SUCCESS, ERROR, NOT_FOUND, UNAUTHORIZED } = getCategory.outputs;
+    getCategory
+      .on(SUCCESS, order => {
+        const results = order;
+        res.status(Status.OK).json(results);
+      })
+      .on(UNAUTHORIZED, message => {
+        res.status(Status.UNAUTHORIZED).json({ message: message });
+      })
+      .on(ERROR, next);
+      getCategory.execute(req.body);
+  },
+
+  getSubCategory(req, res, next) {
+    const { getSubCategory, categorySerializer } = req;
+    const { SUCCESS, ERROR, NOT_FOUND, UNAUTHORIZED } = getSubCategory.outputs;
+    getSubCategory
+      .on(SUCCESS, order => {
+        const results = order;
+        res.status(Status.OK).json(results);
+      })
+      .on(UNAUTHORIZED, message => {
+        res.status(Status.UNAUTHORIZED).json({ message: message });
+      })
+      .on(ERROR, next);
+      getSubCategory.execute(req.body);
+  },
+
 };
 
 module.exports = CategoriesController;
