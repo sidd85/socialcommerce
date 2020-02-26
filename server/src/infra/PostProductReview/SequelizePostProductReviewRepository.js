@@ -7,7 +7,7 @@ class SequelizePostProductReviewRepository {
   async postProductReview( Data) { 
     const data = await this.PostProductReviewModel.options.classMethods.postProductReview(Data);  
     
-    return data;
+    return {message:"Successfully inserted review",success:true};
   }
 }
 module.exports =SequelizePostProductReviewRepository;
