@@ -2,7 +2,9 @@ const Operation = require('src/app/Operation');
 class CategoryDetail extends Operation {
   constructor({ categoriesRepository }) {
     super();
+
     this. categoriesRepository =  categoriesRepository;
+
   }
 
   async execute(orderData) {

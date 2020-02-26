@@ -19,7 +19,8 @@ const {
 
 const { GetAllDepartments } = require("./app/department");
 
-const { GetAllCategories, GetAllCategoriesByDepartment, GetAllCategoriesByCommunity,GetCategory ,GetSubCategory} = require("./app/category");
+
+const { GetAllCategories, GetAllCategoriesByDepartment, GetAllCategoriesByCommunity,GetCategory} = require("./app/category");
 
 const { GetAllCommunities, GetAllCommunitiesByText,GetAllAgentName,GetOrderDetail,CommunityDetail} = require("./app/community");
 const { GetAllBanners,PostBanner } = require("./app/banner");
@@ -46,6 +47,10 @@ const { GetAllCallInfo } =require("./app/callinfo");//callinfo
 const { GetAllOrderDetail,GetAllOrderlist} = require("./app/orderDetail");//orderDetail
 const {GetAllCountry,GetAllState,GetAllCity}=require("./app/Country_State_City_Dependancy")//city country state dependancy
 
+const {GetSubCategory}=require('./app/subcategory')
+
+
+
 const {GetPreferences, UpdatePreferences} = require("./app/preferences");
 
 const AuthSerializer = require("./interfaces/http/auth/AuthSerializer");
@@ -67,6 +72,12 @@ const OrderDetailSerializer = require("./interfaces/http/orderDetail/OrderDetail
 const CountrySerializer = require("./interfaces/http/country/CountrySerializer");
 const StateSerializer = require("./interfaces/http/state/StateSerializer");
 const CitySerializer = require("./interfaces/http/city/CitySerializer");
+
+const SubCategorySerializer = require("./interfaces/http/subcategory/SubCategorySerializer");
+
+
+
+
 
 const Server = require("./interfaces/http/Server");
 const router = require("./interfaces/http/router");
@@ -96,6 +107,8 @@ const SequelizeOrderDetailRepository = require("./infra/orderDetail/SequelizeOrd
 const SequelizeCountryRepository = require("./infra/CountryStateCity/SequelizeCountryRepository");
 const SequelizeStateRepository=require("./infra/CountryStateCity/SequelizeStateRepository");
 const SequelizeCityRepository=require("./infra/CountryStateCity/SequelizeCityRepository");
+const SequelizeSubCategoriesRepository=require("./infra/subcategory/SequelizeSubCategoriesRepository")
+
 const {
   database,
   Customer: CustomerModel,
@@ -116,7 +129,8 @@ const {
   order_detail:OrderDetailModel,
   Country:CountryModel,
   State:StateModel,
-  City:CityModel
+  City:CityModel,
+  SubCategory:SubCategoryModel
 } = require("./infra/database/models");
 
 const container = createContainer();
@@ -167,8 +181,12 @@ container.register({
   callInfoRepository:asClass(SequelizeCallinfoRepository).singleton(),//callinfo
   OrderDetailRepository:asClass(SequelizeOrderDetailRepository).singleton(),//orderdetail
   countryRepository:asClass(SequelizeCountryRepository).singleton(),//Country 
+  stateRepository:asClass(SequelizeStateRepository).singleton(),
+  cityRepository:asClass(SequelizeCityRepository).singleton(), 
+  subCategoriesRepository:asClass(SequelizeSubCategoriesRepository).singleton(),
   stateRepository:asClass(SequelizeStateRepository),
   cityRepository:asClass(SequelizeCityRepository) 
+
 });
  
 // Database
@@ -192,7 +210,8 @@ container.register({
   OrderDetailModel: asValue(OrderDetailModel), //orderDetail
   CountryModel:asValue(CountryModel),
   StateModel:asValue(StateModel),
-  CityModel:asValue(CityModel)
+  CityModel:asValue(CityModel),
+  SubCategoryModel:asValue(SubCategoryModel)
 });
 
 // Operations
@@ -246,7 +265,8 @@ container.register({
   getAllCountry:asClass(GetAllCountry),
   getAllState:asClass(GetAllState),
   getAllCity:asClass(GetAllCity),
-  communityDetail:asClass(CommunityDetail)
+ communityDetail:asClass(CommunityDetail),
+  getSubCategory:asClass(GetSubCategory)
 });
 
 // Serializers
@@ -268,7 +288,9 @@ container.register({
   orderDetailSerializer:asValue(OrderDetailSerializer),//OrderDetail
   countrySerializer:asValue(CountrySerializer),
   stateSerializer:asValue(StateSerializer),
-  citySerializer:asValue(CitySerializer)
+  citySerializer:asValue(CitySerializer),
+  subCategorySerializer:asValue(SubCategorySerializer)
+
 });
 
 container.register({

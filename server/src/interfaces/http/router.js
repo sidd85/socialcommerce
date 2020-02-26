@@ -90,8 +90,9 @@ module.exports = ({
   apiRouter.use("/country",controller("country/CountryController"));
   apiRouter.use("/state",controller("state/StateController"));
   apiRouter.use("/city",controller("city/CityController"));
+  apiRouter.use("/subcategory",controller("subcategory/SubCategoriesController"));
   
-  
+
   
   router.use("/api", apiRouter);
 

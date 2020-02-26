@@ -11,6 +11,7 @@ const getAllState = {
     return router;
   },
   getAllState(req, res, next) {
+  
     const { getAllState, stateSerializer } = req;
     const { SUCCESS, ERROR, NOT_FOUND, UNAUTHORIZED } = getAllState.outputs;
     getAllState

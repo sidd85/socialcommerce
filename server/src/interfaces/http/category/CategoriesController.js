@@ -8,6 +8,8 @@ const CategoriesController = {
     const router = Router();
 
     router.use(inject("categorySerializer"));
+    
+
     router.use(function(req, res, next) {
       res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
       res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -19,7 +21,9 @@ const CategoriesController = {
     router.get("/findByCommunity", inject("getAllCategoriesByCommunity"), this.getAllCategoriesByCommunity);
    
     router.post("/findByCategory", inject("getCategory"), this.getCategory);
+
     router.post("/findBySubCategory", inject("getSubCategory"), this.getSubCategory);
+
 
     return router;
   },

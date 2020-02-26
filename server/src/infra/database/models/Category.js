@@ -99,6 +99,9 @@ module.exports = function(sequelize, DataTypes) {
             type: sequelize.QueryTypes.SELECT} 
         );       
         return getOrder;
+
+      }
+
       },
 
       getSubCategory: function(orderData) {    
@@ -110,8 +113,6 @@ module.exports = function(sequelize, DataTypes) {
             type: sequelize.QueryTypes.SELECT} 
         );       
         return getOrder;
-      }
-
       },
       tableName: "category",
       timestamps: false

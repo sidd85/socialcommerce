@@ -129,7 +129,11 @@ module.exports = function(sequelize, DataTypes) {
               type: sequelize.QueryTypes.RAW
             }
           );
+
+         
+
           console.log(shippingAddress)
+
           return shippingAddress;
         },
 
