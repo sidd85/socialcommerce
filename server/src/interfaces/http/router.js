@@ -91,6 +91,7 @@ module.exports = ({
   apiRouter.use("/state",controller("state/StateController"));
   apiRouter.use("/city",controller("city/CityController"));
   apiRouter.use("/subcategory",controller("subcategory/SubCategoriesController"));
+  apiRouter.use("/productreview",controller("product_review/Product_ReviewController"));
   
 
   

@@ -16,7 +16,7 @@ const EditUserController = {
     editUser
       .on(SUCCESS, order => {
         const results = order;
-        console.log(results,"Messsage@@@@@@@@@@@@@@@@@@@@@@")
+       
         res.status(Status.OK).json(results);
       })
       .on(UNAUTHORIZED, message => {

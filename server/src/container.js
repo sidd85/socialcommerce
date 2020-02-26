@@ -48,7 +48,7 @@ const { GetAllOrderDetail,GetAllOrderlist} = require("./app/orderDetail");//orde
 const {GetAllCountry,GetAllState,GetAllCity}=require("./app/Country_State_City_Dependancy")//city country state dependancy
 
 const {GetSubCategory}=require('./app/subcategory')
-
+const {PostProductReview}=require('./app/product_review')
 
 
 const {GetPreferences, UpdatePreferences} = require("./app/preferences");
@@ -74,6 +74,7 @@ const StateSerializer = require("./interfaces/http/state/StateSerializer");
 const CitySerializer = require("./interfaces/http/city/CitySerializer");
 
 const SubCategorySerializer = require("./interfaces/http/subcategory/SubCategorySerializer");
+const Product_ReviewSerializer=require("./interfaces/http/product_review/Product_ReviewController");
 
 
 
@@ -108,6 +109,7 @@ const SequelizeCountryRepository = require("./infra/CountryStateCity/SequelizeCo
 const SequelizeStateRepository=require("./infra/CountryStateCity/SequelizeStateRepository");
 const SequelizeCityRepository=require("./infra/CountryStateCity/SequelizeCityRepository");
 const SequelizeSubCategoriesRepository=require("./infra/subcategory/SequelizeSubCategoriesRepository")
+const SequelizePostProductReviewRepository=require("./infra/PostProductReview/SequelizePostProductReviewRepository")
 
 const {
   database,
@@ -130,7 +132,8 @@ const {
   Country:CountryModel,
   State:StateModel,
   City:CityModel,
-  SubCategory:SubCategoryModel
+  SubCategory:SubCategoryModel,
+  PostProductReview:PostProductReviewModel
 } = require("./infra/database/models");
 
 const container = createContainer();
@@ -185,8 +188,8 @@ container.register({
   cityRepository:asClass(SequelizeCityRepository).singleton(), 
   subCategoriesRepository:asClass(SequelizeSubCategoriesRepository).singleton(),
   stateRepository:asClass(SequelizeStateRepository),
-  cityRepository:asClass(SequelizeCityRepository) 
-
+  cityRepository:asClass(SequelizeCityRepository), 
+  postProductReviewRepository:asClass(SequelizePostProductReviewRepository)
 });
  
 // Database
@@ -211,7 +214,8 @@ container.register({
   CountryModel:asValue(CountryModel),
   StateModel:asValue(StateModel),
   CityModel:asValue(CityModel),
-  SubCategoryModel:asValue(SubCategoryModel)
+  SubCategoryModel:asValue(SubCategoryModel),
+  PostProductReviewModel:asValue(PostProductReviewModel)
 });
 
 // Operations
@@ -266,7 +270,7 @@ container.register({
   getAllState:asClass(GetAllState),
   getAllCity:asClass(GetAllCity),
  communityDetail:asClass(CommunityDetail),
-  getSubCategory:asClass(GetSubCategory)
+ postProductReview:asClass(PostProductReview) 
 });
 
 // Serializers
@@ -289,8 +293,8 @@ container.register({
   countrySerializer:asValue(CountrySerializer),
   stateSerializer:asValue(StateSerializer),
   citySerializer:asValue(CitySerializer),
-  subCategorySerializer:asValue(SubCategorySerializer)
-
+  subCategorySerializer:asValue(SubCategorySerializer),
+  product_ReviewSerializer:asValue(Product_ReviewSerializer)
 });
 
 container.register({
