@@ -27,10 +27,10 @@ module.exports = function(sequelize, DataTypes) {
         classMethods: {
             getSubCategory: function(orderData) {    
                 const getOrder = sequelize.query(
-                  "SELECT  * FROM  sub_category", { 
-                    // replacements: {
-                    //   id: orderData.categoryId             
-                    // },
+                "SELECT  * FROM  sub_category  WHERE  category_id=:id", { 
+              replacements: {
+                          id: orderData.categoryId             
+              },
                     type: sequelize.QueryTypes.SELECT} 
                 );       
                 return getOrder;
@@ -45,3 +45,8 @@ module.exports = function(sequelize, DataTypes) {
   };
   
 
+
+// "SELECT  * FROM  sub_category", { 
+//   // replacements: {
+//   //   id: orderData.categoryId             
+//   // },

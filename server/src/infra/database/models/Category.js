@@ -89,31 +89,10 @@ module.exports = function(sequelize, DataTypes) {
             type: sequelize.QueryTypes.SELECT} 
         );       
         return getOrder;
-      },
-      getSubCategory: function(orderData) {    
-        const getOrder = sequelize.query(
-          "SELECT  * FROM  category  WHERE  department_id=:id", { 
-            replacements: {
-              id: orderData.departmentId             
-            },
-            type: sequelize.QueryTypes.SELECT} 
-        );       
-        return getOrder;
-
       }
-
       },
 
-      getSubCategory: function(orderData) {    
-        const getOrder = sequelize.query(
-          "SELECT  * FROM  sub_category  WHERE  department_id=:id", { 
-            replacements: {
-              id: orderData.categoryId             
-            },
-            type: sequelize.QueryTypes.SELECT} 
-        );       
-        return getOrder;
-      },
+     
       tableName: "category",
       timestamps: false
     },
@@ -121,3 +100,8 @@ module.exports = function(sequelize, DataTypes) {
 
   return Category;
 };
+
+// "SELECT  * FROM  category  WHERE  department_id=:id", { 
+//   replacements: {
+//     id: orderData.departmentId             
+//   },

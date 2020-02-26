@@ -22,7 +22,7 @@ const CategoriesController = {
    
     router.post("/findByCategory", inject("getCategory"), this.getCategory);
 
-    router.post("/findBySubCategory", inject("getSubCategory"), this.getSubCategory);
+    
 
 
     return router;
@@ -121,21 +121,6 @@ const CategoriesController = {
       })
       .on(ERROR, next);
       getCategory.execute(req.body);
-  },
-
-  getSubCategory(req, res, next) {
-    const { getSubCategory, categorySerializer } = req;
-    const { SUCCESS, ERROR, NOT_FOUND, UNAUTHORIZED } = getSubCategory.outputs;
-    getSubCategory
-      .on(SUCCESS, order => {
-        const results = order;
-        res.status(Status.OK).json(results);
-      })
-      .on(UNAUTHORIZED, message => {
-        res.status(Status.UNAUTHORIZED).json({ message: message });
-      })
-      .on(ERROR, next);
-      getSubCategory.execute(req.body);
   },
 
 };
