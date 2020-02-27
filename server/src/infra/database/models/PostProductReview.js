@@ -62,9 +62,12 @@ module.exports = function(sequelize, DataTypes) {
               getAllProductReview: function(orderData) {    
                 console.log(orderData)
                 const Reviews = sequelize.query(
-                "SELECT * FROM review WHERE product_id=:isproduct_id;", { 
+                  "SELECT r.*, c.name FROM review AS r JOIN customer AS c ON r.customer_id = c.customer_id WHERE c.customer_id =:iscustomer_id"
+                  // "SELECT * FROM review WHERE product_id=:isproduct_id;",
+                 ,{ 
               replacements: {
-                isproduct_id: orderData.product_id,              
+                iscustomer_id: orderData.customer_id, 
+                            
               },
                     type: sequelize.QueryTypes.SELECT} 
                 );     

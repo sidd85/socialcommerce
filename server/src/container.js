@@ -49,7 +49,7 @@ const {GetAllCountry,GetAllState,GetAllCity}=require("./app/Country_State_City_D
 
 const {GetSubCategory}=require('./app/subcategory')
 const {PostProductReview,GetAllProductReview}=require('./app/product_review')
-
+const {PostCustomerSession}=require('./app/customer_session')
 
 const {GetPreferences, UpdatePreferences} = require("./app/preferences");
 
@@ -75,6 +75,7 @@ const CitySerializer = require("./interfaces/http/city/CitySerializer");
 
 const SubCategorySerializer = require("./interfaces/http/subcategory/SubCategorySerializer");
 const Product_ReviewSerializer=require("./interfaces/http/product_review/Product_ReviewSerializer");
+const CustomerSessionSerializer=require("./interfaces/http/customer_session/CustomerSessionSerializer");
 
 
 
@@ -110,6 +111,7 @@ const SequelizeStateRepository=require("./infra/CountryStateCity/SequelizeStateR
 const SequelizeCityRepository=require("./infra/CountryStateCity/SequelizeCityRepository");
 const SequelizeSubCategoriesRepository=require("./infra/subcategory/SequelizeSubCategoriesRepository")
 const SequelizePostProductReviewRepository=require("./infra/PostProductReview/SequelizePostProductReviewRepository")
+const SequelizeCustomerSessionRepository=require("./infra/customer_session/SequelizeCustomerSessionRepository")
 
 const {
   database,
@@ -133,7 +135,8 @@ const {
   State:StateModel,
   City:CityModel,
   SubCategory:SubCategoryModel,
-  PostProductReview:PostProductReviewModel
+  PostProductReview:PostProductReviewModel,
+  CustomerSession:CustomerSessionModel
 } = require("./infra/database/models");
 
 const container = createContainer();
@@ -189,7 +192,8 @@ container.register({
   subCategoriesRepository:asClass(SequelizeSubCategoriesRepository).singleton(),
   stateRepository:asClass(SequelizeStateRepository),
   cityRepository:asClass(SequelizeCityRepository), 
-  postProductReviewRepository:asClass(SequelizePostProductReviewRepository)
+  postProductReviewRepository:asClass(SequelizePostProductReviewRepository),
+  customerSessionRepository:asClass(SequelizeCustomerSessionRepository)
 });
  
 // Database
@@ -215,7 +219,8 @@ container.register({
   StateModel:asValue(StateModel),
   CityModel:asValue(CityModel),
   SubCategoryModel:asValue(SubCategoryModel),
-  PostProductReviewModel:asValue(PostProductReviewModel)
+  PostProductReviewModel:asValue(PostProductReviewModel),
+  CustomerSessionModel:asValue(CustomerSessionModel)
 });
 
 // Operations
@@ -271,7 +276,8 @@ container.register({
   getAllCity:asClass(GetAllCity),
  communityDetail:asClass(CommunityDetail),
  postProductReview:asClass(PostProductReview),
- getAllProductReview:asClass(GetAllProductReview) 
+ getAllProductReview:asClass(GetAllProductReview), 
+ postCustomerSession:asClass(PostCustomerSession)
 });
 
 // Serializers
@@ -295,7 +301,8 @@ container.register({
   stateSerializer:asValue(StateSerializer),
   citySerializer:asValue(CitySerializer),
   subCategorySerializer:asValue(SubCategorySerializer),
-  product_ReviewSerializer:asValue(Product_ReviewSerializer)
+  product_ReviewSerializer:asValue(Product_ReviewSerializer),
+  customerSessionSerializer:asValue(CustomerSessionSerializer)
 });
 
 container.register({

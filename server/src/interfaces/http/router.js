@@ -92,8 +92,7 @@ module.exports = ({
   apiRouter.use("/city",controller("city/CityController"));
   apiRouter.use("/subcategory",controller("subcategory/SubCategoriesController"));
   apiRouter.use("/productreview",controller("product_review/Product_ReviewController"));
-  
-
+  apiRouter.use("/Post",controller("customer_session/CustomerSessionController"))
   
   router.use("/api", apiRouter);
 

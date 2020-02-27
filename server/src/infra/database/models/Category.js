@@ -101,7 +101,3 @@ module.exports = function(sequelize, DataTypes) {
   return Category;
 };
 
-// "SELECT  * FROM  category  WHERE  department_id=:id", { 
-//   replacements: {
-//     id: orderData.departmentId             
-//   },
