@@ -1,4 +1,5 @@
 module.exports = {
-    PostProductReview:require("./PostProductReview")
+    PostProductReview:require("./PostProductReview"),
+    GetAllProductReview:require("./GetAllProductReview")
 };
   

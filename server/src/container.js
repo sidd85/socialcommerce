@@ -48,7 +48,7 @@ const { GetAllOrderDetail,GetAllOrderlist} = require("./app/orderDetail");//orde
 const {GetAllCountry,GetAllState,GetAllCity}=require("./app/Country_State_City_Dependancy")//city country state dependancy
 
 const {GetSubCategory}=require('./app/subcategory')
-const {PostProductReview}=require('./app/product_review')
+const {PostProductReview,GetAllProductReview}=require('./app/product_review')
 
 
 const {GetPreferences, UpdatePreferences} = require("./app/preferences");
@@ -74,7 +74,7 @@ const StateSerializer = require("./interfaces/http/state/StateSerializer");
 const CitySerializer = require("./interfaces/http/city/CitySerializer");
 
 const SubCategorySerializer = require("./interfaces/http/subcategory/SubCategorySerializer");
-const Product_ReviewSerializer=require("./interfaces/http/product_review/Product_ReviewController");
+const Product_ReviewSerializer=require("./interfaces/http/product_review/Product_ReviewSerializer");
 
 
 
@@ -270,7 +270,8 @@ container.register({
   getAllState:asClass(GetAllState),
   getAllCity:asClass(GetAllCity),
  communityDetail:asClass(CommunityDetail),
- postProductReview:asClass(PostProductReview) 
+ postProductReview:asClass(PostProductReview),
+ getAllProductReview:asClass(GetAllProductReview) 
 });
 
 // Serializers

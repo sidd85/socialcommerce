@@ -1,4 +1,4 @@
-/* jshint indent: 2 */
+      /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
     const Review = sequelize.define(
@@ -48,7 +48,30 @@ module.exports = function(sequelize, DataTypes) {
                 );     
                 console.log(Reviews);  
                 return Reviews;
+              },
+              // getAllProductReview: function(
+              //   page,
+              //   limit,
+              //   offset
+              // ) {
+              //   const callInfo = sequelize.query(
+              //     "SELECT * FROM review", { type: sequelize.QueryTypes.SELECT}
+              //   );          
+              //   return callInfo;
+              // },
+              getAllProductReview: function(orderData) {    
+                console.log(orderData)
+                const Reviews = sequelize.query(
+                "SELECT * FROM review WHERE product_id=:isproduct_id;", { 
+              replacements: {
+                isproduct_id: orderData.product_id,              
+              },
+                    type: sequelize.QueryTypes.SELECT} 
+                );     
+                console.log(Reviews);  
+                return Reviews;
               }
+              
         },
         tableName: "review",
         timestamps: false
